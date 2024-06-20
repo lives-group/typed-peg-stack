@@ -83,14 +83,15 @@
                                           (constr-and (constr-eq ty (term-pow tv1 n1))
                                                       (constr-diff n1 (val-infty))))
                              )]
-    [(prepeat-interval e i f) (let* ([tv1 (fresh-var)]
-                                     [c1 (gen-constr-expr e tv1)]
-                                     [ni (norm i)]
-                                     [nf (norm f)])
-                                     (constr-and (constr-ex tv1 c1)
-                                                 (constr-and (constr-eq ty (term-interval tv1 ni nf))
-                                                             (constr-diff ni (val-infty))))
-                             )]
+    [(prepeat-interval e i f)
+     (let* ([tv1 (fresh-var)]
+            [c1 (gen-constr-expr e tv1)]
+            [ni (norm i)]
+            [nf (norm f)])
+            (constr-and (constr-ex tv1 c1)
+                        (constr-and (constr-eq ty (term-interval tv1 ni nf))
+                                    (constr-diff ni (val-infty)))))
+                             ]
     [(pchoice e1 e2)
      (let* ([tv1 (fresh-var)]
             [tv2 (fresh-var)]

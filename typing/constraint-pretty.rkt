@@ -24,6 +24,10 @@
      (hs-append (ppr-constraint c1)
                 (text "&")
                 (ppr-constraint c2))]
+    [(constr-not c1)
+     (hs-append (text "¬(")
+                (ppr-constraint c1)
+                (text ")"))]
     [(constr-def nt ty c)
      (hs-append (text "def")
                 (text nt)

@@ -16,6 +16,10 @@
   (left right)
   #:prefab)
 
+(struct constr-not
+  (constr)
+  #:prefab)
+
 (struct constr-eq
   (left right)
   #:prefab)

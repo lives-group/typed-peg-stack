@@ -38,6 +38,10 @@
                      (car r2))
              (constr-and (cdr r1)
                          (cdr r2))))]
+    [(constr-not c1)
+     (let* ([r1 (gen-context c1)])
+       (cons (car r1)
+             (constr-not (cdr r1))))]
     [(constr-eq ty1 ty2)
      (cons '() (constr-eq ty1 ty2))]
     [(constr-diff ty1 ty2)
@@ -64,6 +68,10 @@
                         (car r2))])
        (cons xs (constr-and (cdr r1)
                             (cdr r2))))]
+    [(constr-not c1)
+     (let* ([r1 (elim-exists c1)])
+       (cons (car r1)
+             (constr-not (cdr r1))))]
     [(constr-eq ty1 ty2)
      (cons '() (constr-eq ty1 ty2))]
     [(constr-diff ty1 ty2)
@@ -92,6 +100,7 @@
   (match c
     [(constr-and c1 c2) (append (group c1)
                                 (group c2))]
+    [(constr-not c1) (group c1)]
     [(constr-ex _ _) '()]
     [(constr-T) '()]
     [(constr-F) '()]

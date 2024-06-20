@@ -61,6 +61,19 @@
 
 ;; definition of assertions
 
+(define (val-to-infNat v)
+    (match v
+      [(val-nat i) i]
+      [(val-infty) 'infty])
+  )
+
+(define (number->INat n)
+   (cond
+     [(number? n)       (string-append "(i " (number->string n) ")")]
+     [(equal? n 'infty) (string-append "Infty")]
+     )
+  )
+
 (define (create-assertions ctx eqs)
   (string-join (map (lambda (e) (create-assertion ctx e))
                     eqs)
@@ -120,20 +133,23 @@
      (with-trace-info eq (plus-assertion-eq t1 t2 t3))]
     [(constr-eq (term-tyvar t1) (term-not (term-tyvar t2)))
      (with-trace-info eq (not-assertion-eq t1 t2))]
-    [(constr-eq (term-tyvar t1) (term-pow (term-tyvar t2) (val-nat i)))
-     (with-trace-info eq (pow-assertion-eq t1 t2 i))]
-    [(constr-eq (term-tyvar t1) (term-interval (term-tyvar t2) (val-nat i) (val-nat j)))
-     (with-trace-info eq (interval-assertion-eq t1 t2 i j))]
+    [(constr-eq (term-tyvar t1) (term-pow (term-tyvar t2) i))
+     (with-trace-info eq (pow-assertion-eq t1 t2 (val-to-infNat i)))]
+    [(constr-eq (term-tyvar t1) (term-interval (term-tyvar t2) i j))
+     (with-trace-info eq (interval-assertion-eq t1 t2 (val-to-infNat i) (val-to-infNat j)))]
     [(constr-eq (pvar v) (term-tyvar t1))
      (with-trace-info eq (nt-assertion-eq ctx v t1))]
-    [(constr-diff (term-tyvar vt1) (val-nat v))
-     (with-trace-info eq (term-assertion-diff vt1 v))]
+    
     [(constr-diff (term-tyvar vt1) (val-infty))
      (with-trace-info eq (term-assertion-diff vt1 'infty))]
-    [(constr-diff (val-nat v1) (val-nat v2))
-     (with-trace-info eq (term-assertion-diff v1 v2))]
+    [(constr-diff (term-tyvar vt1) (val-nat v))
+     (with-trace-info eq (term-assertion-diff vt1 v))]
     [(constr-diff (val-nat v1) (val-infty))
-     (with-trace-info eq (term-assertion-diff v1 'infty))]))
+     (with-trace-info eq (val-assertion-diff v1 'infty))]
+    [(constr-diff (val-nat v1) (val-nat v2))
+     (with-trace-info eq (val-assertion-diff v1 v2))]
+    [(constr-diff (val-infty) (val-infty))
+     (with-trace-info eq (val-assertion-diff 'infty 'infty))]))
 
 (define (nt-assertion-eq ctx v t1)
   (let ([t2 (assoc v ctx)])
@@ -198,26 +214,30 @@
     "(assert (not (= "
     (var->string t1)
     " "
-    (if (eq? n 'infty) "infty" (number->string n)) ")))"))
+    (number->INat n) ")))"))
 
 (define (val-assertion-diff i j)
   (string-append
     "(assert (not (= "
-    (number->string i)
+    (number->INat i)
     " "
-    (if (eq? 'infty j) "infty" (number->string j)) ")))"))
+    (number->INat j) ")))"))
 
 (define (pow-assertion-eq t1 t2 i)
   (string-append
     "(assert (= "
     (var->string t1)
-    " (typow "  (var->string t2) " " (number->string i) ")))"))
+    " (typow "  (var->string t2) " " (number->INat i) ")))"))
 
 (define (interval-assertion-eq t1 t2 i j)
   (string-append
-   ("(assert (= "
+   "(assert (= "
     (var->string t1)
-    " (tyinter "  (var->string t2) " " (number->string i) " " (number->string j) ")))")))
+    " (tyinter "  (var->string t2) " " (number->INat i) " " (number->INat j) ")))\n"
+    "(assert (not (and "
+    "(= " (number->INat j) " Infty ) (is-null " (var->string t2) ") )))\n"
+    "(assert (lt " (number->INat i) " " (number->INat j) "))"
+    ))
 
 (define (star-assertion-eq t1 t2)
   (string-append
@@ -255,6 +275,35 @@
   (ite b s empty))
 
 (declare-datatypes () ((Type (mk-type (is-null Bool) (head-set (Set NT))))))
+(declare-datatypes () ((INat (i (value Int))  Infty )) )
+
+(define-fun lt ((a INat) (b INat)) (Bool)
+  (match a
+     (case (i n) (match b
+                    (case (i m) (< n m))
+                    (case Infty true) ))
+     (case Infty (match b
+                    (case (i m) false)
+                    (case Infty false)))))
+
+(define-fun gt ((a INat) (b INat)) (Bool)
+  (match a
+     (case (i n) (match b
+                    (case (i m) (> n m))
+                    (case Infty false) ))
+     (case Infty (match b
+                    (case (i m) true)
+                    (case Infty false)))))
+
+(define-fun isZero ((a INat)) (Bool)
+  (match a
+     (case (i n) (= n 0))
+     (case Infty false)))
+
+(define-fun isInfty ((a INat)) (Bool)
+  (match a
+     (case (i n) false)
+     (case Infty true)))
 
 (define-fun prod ((a Type) (b Type)) (Type)
   (mk-type (and (is-null a) (is-null b))
@@ -277,11 +326,11 @@
 (define-fun member ((a NT) (t Type)) (Bool)
   (select (head-set t) a))
 
-(define-fun typow ((a Type) (i Natural)) (Type)
-  (mk-type (or (= i 0) (is-null a))
+(define-fun typow ((a Type) (i INat)) (Type)
+  (mk-type (or (isZero i) (is-null a))
            (head-set a)))
 
-(define-fun tyinter ((a Type) (i Natural) (j Natural)) (Type)
-  (mk-type (or (= i 0) (is-null a))
+(define-fun tyinter ((a Type) (i INat) (j INat)) (Type)
+  (mk-type (or (isZero i) (is-null a))
            (head-set a)))")
 
