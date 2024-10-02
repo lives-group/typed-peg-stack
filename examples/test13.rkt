@@ -1,4 +1,4 @@
-#lang typed-peg/debug/parse-only
+#lang typed-peg-stack/untyped
 
 start: & "a" / "bb" +
 

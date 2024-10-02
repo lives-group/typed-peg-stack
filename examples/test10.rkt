@@ -1,3 +1,3 @@
-#lang typed-peg/untyped
+#lang typed-peg-stack/untyped
 
 start: 'a' (! 'b' / 'c')*

@@ -1,4 +1,4 @@
-#lang typed-peg/untyped
+#lang typed-peg-stack/untyped
 
 A <-- 'a' A / 'a';
 

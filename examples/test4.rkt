@@ -1,4 +1,4 @@
-#lang typed-peg/untyped
+#lang typed-peg-stack/untyped
 
 S <-- !! A 'a'* B ! C ;
 B <-- 'b' B 'c' / epsilon ;

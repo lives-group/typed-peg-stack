@@ -1,4 +1,4 @@
-#lang typed-peg
+#lang typed-peg-stack/untyped
 
 K <-- (epsilon '3') / (epsilon '2');
 C <-- ('2' / E) (! K);

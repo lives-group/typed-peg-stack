@@ -1,4 +1,4 @@
-#lang typed-peg/untyped
+#lang typed-peg-stack/untyped
 
 X2 <-- epsilon '2' / '2' X0 epsilon ; 
 X1 <-- '2' / X2 / '3' / X2 ;
