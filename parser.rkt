@@ -7,13 +7,28 @@
 
 (define (flattent t)
    (match t
-     [(tunit)     '()]
-     [(tchr c)    (list c)]
-     [(tpair f s) (append (flattent f) (flattent s))]
-     [(tleft t)   (flattent t)] 
-     [(tright t)  (flattent t)]
-     [(tlist xs)  (flatten (map flattent xs))] 
+      [(tunit)     '()]
+      [(tchr c)    (list c)]
+      [(tpair f s) (append (flattent f) (flattent s))]
+      [(tleft t)   (flattent t)] 
+      [(tright t)  (flattent t)]
+      [(tlist xs)  (flatten (map flattent xs))]
+      [(tpop xs)  (flatten (map flattent xs))]
+      [(tpush xs)  (flatten (map flattent xs))]
+      [(tdrop)  '()]
+      [(tpeek xs)  (flatten (map flattent xs))]
+      [(tpeek xs)  (flatten (map flattent xs))]
+      [(tpeekall xs)  (flatten (map flattent xs))]
+      [(tpopall xs)  (flatten (map flattent xs))]
      )
+  )
+
+(define (match-input x s)
+      (cond [(null? x) s]
+            [(null? s) #f]
+            [(char=? (car x) (car s)) (match-input (cdr x) (cdr s))]
+            [else #f]
+            )
   )
 ;; definition of the top level parser
 
@@ -97,19 +112,43 @@
 (define (run-push stk g e s)
       (match (run-expr stk g e s)
              ['() '()]
-             [(list t stk1 s1) (list t (cons (flattent t) stk1) s1) ]))
+             [(list t stk1 s1) (list (tpush t) (cons (flattent t) stk1) s1) ]))
 
-#;(define (run-repeat-exact stk n g e s)
+(define (run-pop stk g s)
+     (if (null? stk)
+         '()
+          (match (match-input (car stk) s)
+                [#f '()]
+                [s1 (list (tpop (car stk)) (cdr stk) s1)])))
+
+(define (run-peek stk g s)
+     (if (null? stk)
+         '()
+          (match (match-input (car stk) s)
+                [#f '()]
+                [s1 (list (tpop (car stk)) stk s1)])))
+
+(define (run-drop stk g s)
+     (if (null? stk)
+         '()
+          (list (tdrop) (cdr stk) s)))
+
+(define (run-repeat-while stk t f g e s)
+   (cond [(<= f 0) (list t stk s)]
+         [else (match (run-expr stk g e s)
+                      ['()                       (list t stk s)]
+                      [(list t1 stk1 s1) (run-repeat-while stk1
+                                                          (append t (list t1))
+                                                          (- f 1)
+                                                          g e s)]) ])
+  )
+
+(define (run-repeat-interval stk i f g e s)
   (cond
-    [(<= n 0) (list (tlist '()) stk s)]
-    [else (match (run-expr stk g e s)
-               ['() '()]
-               [(list t stk1 s1)
-                    (match (run-repeat-exact stk1 (- n 1) g e s1)
-                           ['() '()]
-                           [(list (tlist t2) stk2 s2)
-                            (list (tlist (cons t t2)) stk2 s2)]
-               [(list t stk2 s2) (raise 'invalid-tree)])])]))
+    [(< f i) (list (tlist '()) stk s)]
+    [else (match (run-repeat-exact stk i g e s)
+              ['() '()]
+              [(list t stk1 s1) (run-repeat-while stk1 (list t) f g e s1)])]))
 
 (define (eval stk e)
     (match e
@@ -132,7 +171,13 @@
     [(pcat e1 e2) (run-cat stk g e1 e2 s)]
     [(pchoice e1 e2) (run-choice stk g e1 e2 s)]
     [(pneg e1) (run-neg stk g e1 s)]
-    [(pstar e) (run-star stk g e s)]
-    [(prepeat-exact e ae) (run-repeat-exact stk (eval stk ae) g e s)]
-    [(ppush e) (run-push stk g e s)]
+    [(pstar e1) (run-star stk g e1 s)]
+    [(prepeat-exact e1 ae) (run-repeat-exact stk (eval stk ae) g e1 s)]
+    [(prepeat-interval e1 ai af) (run-repeat-interval stk (eval stk ai) (eval stk af) g e1 s)]
+    [(ppush e1) (run-push stk g e1 s)]
+    [(ppeek) (run-peek stk g s)]
+    [(ppop)    (run-pop stk g s)]
+    [(pdrop)   (run-drop stk g s)]
+    ;[(ppopall) (run-expr (cdr stk) g e s)]
+    
   ))

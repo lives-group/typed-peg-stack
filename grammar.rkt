@@ -40,7 +40,7 @@
     (factor [(factor postfix) ($2 $1)]
             [(atom) $1])
     (postfix [(STAR) (lambda (e) (pstar e))]
-             [(PLUS) (lambda (e) (pcat e (pstar e)))]
+             ;[(PLUS) (lambda (e) (pcat e (pstar e)))]
              [(OPTION) (lambda (e) (pchoice e peps))]
              [(LKEYS aexpr COMMA aexpr RKEYS) (lambda (e) (prepeat-interval e $2 $4))]
              [(LKEYS aexpr RKEYS) (lambda (e) (prepeat-exact e $2))]
@@ -59,7 +59,7 @@
           [(DROP)    (pdrop)]
           [(PEEK)    (ppeek)]
           [(PEEKALL) (ppeekall)]
-          [(DROPALL) (pdropall)])
+          [(DROPALL) (ppopall)])
     (aexpr [(aexpr op1 aterm) (ax-op $2 $1 $3)]
            [(aterm) $1])
     (aterm [(aterm op2 afactor) (ax-op $2 $1 $3)]

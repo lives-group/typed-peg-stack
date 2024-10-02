@@ -27,3 +27,25 @@
 (struct tlist
   (elems)
   #:prefab)
+
+(struct tpop
+  (t)
+  #:prefab)
+
+(struct tpush
+  (t)
+  #:prefab)
+
+(struct tpeek
+  (t)
+  #:prefab)
+
+(struct tdrop () #:prefab)
+
+(struct tpopall
+  (xs)
+  #:prefab)
+
+(struct tpeekall
+  (xs)
+  #:prefab)

@@ -56,6 +56,36 @@
     [(tunit) '()]
     [t1 (raise 'type-error)]))
 
+(define (ppr-push g e t)
+  (match t
+    [(tpush t) (ppr g e t)]
+    [t1 (raise 'type-error)]))
+
+(define (ppr-drop g t)
+  (match t
+    [(tdrop) '()]
+    [t1 (raise 'type-error)]))
+
+(define (ppr-peekall g t)
+  (match t
+    [(tpeekall t) t]
+    [t1 (raise 'type-error)]))
+
+(define (ppr-popall g t)
+  (match t
+    [(tpopall t) t]
+    [t1 (raise 'type-error)]))
+
+(define (ppr-peek g t)
+  (match t
+    [(tpeek t) t]
+    [t1 (raise 'type-error)]))
+
+(define (ppr-poop g t)
+  (match t
+    [(tpeek t) t]
+    [t1 (raise 'type-error)]))
+
 
 (define (ppr g e t)
   (match e
@@ -65,4 +95,10 @@
     [(pcat e1 e2) (ppr-cat g e1 e2 t)]
     [(pchoice e1 e2) (ppr-choice g e1 e2 t)]
     [(pstar e1) (ppr-star g e1 t)]
-    [(pneg e1) (ppr-neg g e1 t)]))
+    [(pneg e1) (ppr-neg g e1 t)]
+    [(ppop) (ppr-poop g t)]
+    [(ppush e1) (ppr-push g e1 t)]
+    [(pdrop) (ppr-drop g t)]
+    [(ppeek) (ppr-peek g t)]
+    [(ppopall) (ppr-popall g t)]
+    [(ppeekall) (ppr-peekall g t)]))

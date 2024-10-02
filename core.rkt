@@ -44,8 +44,7 @@
   ()
   #:prefab)
 
-
-(struct pdropall
+(struct ppopall
   ()
   #:prefab)
 
