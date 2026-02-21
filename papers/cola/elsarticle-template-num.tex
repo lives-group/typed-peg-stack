@@ -1,0 +1,1981 @@
+%%
+%% Copyright 2007-2024 Elsevier Ltd
+%%
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%%
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.3 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%%
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%%
+%% Template article for Elsevier's document class `elsarticle'
+%% with numbered style bibliographic references
+%% SP 2008/03/01
+%% $Id: elsarticle-template-num.tex 249 2024-04-06 10:51:24Z rishi $
+%%
+\documentclass[preprint,12pt]{elsarticle}
+
+%% Use the option review to obtain double line spacing
+%% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
+
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+%% \documentclass[final,1p,times]{elsarticle}
+%% \documentclass[final,1p,times,twocolumn]{elsarticle}
+%% \documentclass[final,3p,times]{elsarticle}
+%% \documentclass[final,3p,times,twocolumn]{elsarticle}
+%% \documentclass[final,5p,times]{elsarticle}
+%% \documentclass[final,5p,times,twocolumn]{elsarticle}
+
+%% For including figures, graphicx.sty has been loaded in
+%% elsarticle.cls. If you prefer to use the old commands
+%% please give \usepackage{epsfig}
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+%% The amsmath package provides various useful equation environments.
+\usepackage{amsmath,amsthm,proof,float}
+\usepackage{semantic}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{hyperref}
+\def\lstlanguagefiles{lstlean.tex}
+% set default language
+\lstset{language=lean}
+\newtheorem{Lemma}{Lemma}
+\newtheorem{Theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{Example}{Example}
+
+%% The amsthm package provides extended theorem environments
+%% \usepackage{amsthm}
+
+%\usepackage{xcolor}
+
+\usepackage{color}
+\definecolor{keywordcolor}{rgb}{0.7, 0.1, 0.1}   % red
+\definecolor{tacticcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{commentcolor}{rgb}{0.4, 0.4, 0.4}   % grey
+\definecolor{symbolcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{sortcolor}{rgb}{0.1, 0.5, 0.1}      % green
+\definecolor{attributecolor}{rgb}{0.7, 0.1, 0.1} % red
+
+\def\lstlanguagefiles{lstlean.tex}
+% set default language
+\lstset{language=lean}
+
+\usepackage{lineno}
+\usepackage{url}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers.
+%% \usepackage{lineno}
+
+\journal{Journal of Computer Languages}
+
+\begin{document}
+
+\begin{frontmatter}
+
+%% Title, authors and addresses
+
+%% use the tnoteref command within \title for footnotes;
+%% use the tnotetext command for theassociated footnote;
+%% use the fnref command within \author or \affiliation for footnotes;
+%% use the fntext command for theassociated footnote;
+%% use the corref command within \author for corresponding author footnotes;
+%% use the cortext command for theassociated footnote;
+%% use the ead command for the email address,
+%% and the form \ead[url] for the home page:
+%% \title{Title\tnoteref{label1}}
+%% \tnotetext[label1]{}
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+%% \ead[url]{home page}
+%% \fntext[label2]{}
+%% \cortext[cor1]{}
+%% \affiliation{organization={},
+%%             addressline={},
+%%             city={},
+%%             postcode={},
+%%             state={},
+%%             country={}}
+%% \fntext[label3]{}
+
+\title{Pest control: A formal model of the Pest parser generator}
+%% use optional labels to link authors explicitly to addresses:
+%% \author[label1,label2]{}
+%% \affiliation[label1]{organization={},
+%%             addressline={},
+%%             city={},
+%%             postcode={},
+%%             state={},
+%%             country={}}
+%%
+%% \affiliation[label2]{organization={},
+%%             addressline={},
+%%             city={},
+%%             postcode={},
+%%             state={},
+%%             country={}}
+
+\author[ufop]{Guilherme Daher} %% Author name
+\author[ufop]{Elton Cardoso}
+\author[ufsc]{Samuel Feitosa}
+\author[ufop]{Rodrigo Ribeiro} %% Author name
+
+%% Author affiliation
+\affiliation[ufop]{organization={Federal University of Ouro Preto},%Department and Organization
+            city={Ouro Preto},
+            state={MG},
+            country={Brazil}}
+\affiliation[ufsc]{organization={Federal University of the Southern Border},%Department and Organization
+            city={Chapecó},
+            state={SC},
+            country={Brazil}}
+
+%% Abstract
+\begin{abstract}
+Parsing expressions grammars (PEGs) are a recognition-based formalism for parsers,
+which has been gaining popularity because they avoid some problems present in context-free grammar
+based specifications. In the context of the Rust programming language, the most used
+PEG-based parser generator is Pest. An interesting feature of Pest grammars is that they
+support new operators for repetition and handling an implicit stack during parsing.
+In this work, we propose a formalization of these new constructs and extend a
+type inference algorithm which guarantee that all well-typed Pest-style grammars
+terminate on all inputs.
+\end{abstract}
+
+%%Graphical abstract
+%\begin{graphicalabstract}
+%\includegraphics{grabs}
+%\end{graphicalabstract}
+
+%%Research highlights
+\begin{highlights}
+\item Formalizes the semantics of Pest parser generator new repetition and stack operators
+  using an operational semantics.
+\item Extends an existing PEG type system and its inference algorithm that ensures
+  termination for all well-typed grammars to consider Pest new operators.
+\item We provide a Lean 4 mechanized proof of type soundness for the defined type system which
+  ensures termination of parsing for all well-typed grammars.
+\end{highlights}
+
+%% Keywords
+\begin{keyword}
+Parsing \sep parsing expression grammars \sep type systems
+\end{keyword}
+
+\end{frontmatter}
+
+%% Add \usepackage{lineno} before \begin{document} and uncomment
+%% following line to enable line numbers
+\linenumbers
+
+%% main text
+%%
+
+\section{Introduction}\label{sec:intro}
+
+Parsing is a core problem in computer science. In simple terms, a parsing
+algorithm, also named a parser, checks if a string of symbols conforms to some
+set of rules specified by formalisms like context-free grammars (CFGs) or
+regular expressions (REs). Usually, parsers construct data structures showing
+what rules were used to conclude that the input string was obtainable from the
+specification or an error message indicating that such string is unobtainable
+from the specification. Due to its importance, parsing is an extensively studied
+subject, as evidenced by Grune and Jacob's book "Parsing Techniques: A Practical
+Guide", which has more than 600 pages and covers only classic algorithms \cite{Grune90}.
+However, parsing is far from being a solved problem: in recent years,
+we have seen a growing interest in the development of new algorithms and
+formalisms~\cite{Ford2004, Trevor10,Asperti10, Lucks17, Zhang23} or the verification
+of well-known parsing techniques ~\cite{FirsovU14, FirsovU13,LopesRC16,Bernardy16}.
+
+In the early 2000's, Brian Ford proposed \emph{Parsing Expression Grammars}
+(PEGs),  a recognition-based formalism to
+define languages~\cite{Ford2004}. The novelty of PEGs is that they
+specify how to check whether a string is in
+the language being defined and not how it is generated by its specification.
+Formally a PEG is a 4-tuple $(V_N, V_T, R, e_S)$ where $V_N$ is the set of non-terminals
+(a.k.a. variables), $V_T$ is the set of terminals (a.k.a. alphabet symbols),
+$R$ is a function which maps a non terminal from $V_N$ to a {\it parsing expression}
+and $e_S$ is the initial parsing
+expression. A parsing expression is very
+similar to the right-hand side of a CFG in the extended Backus-Naur
+form with the addition of new operators such as the not-predicate (!) and
+the prioritized choice (/). A fundamental difference between PEG
+and CFGs is the choice operator, which impose priority between alternatives.
+It means that $\beta$ in a prioritized choice expression $\alpha / \beta$ is tested only
+in case of failure on $\alpha$. The not-predicate operator checks
+if the string matches some syntax without consuming the input.
+
+In the context of the Rust programming language~\cite{RustBook}, the
+Pest library~\cite{PEST} is the most popular PEG-based parser
+generator for Rust, having more than 114.000 downloads registered at
+\href{http://crates.io}{crates.io} package registry. Besides supporting
+all traditional PEG operators, Pest support operators to manipulate an
+implicit stack during parser execution. The inclusion of a stack allows
+Pest parsers to elegantly express identation sensitive languages by
+controlling identation levels using the stack. While such new operators
+eases the task of writing grammars for complex formats, additional care
+must be taken in order to ensure PEG \emph{well-formedness}. We
+say that a PEG is well-formed if it terminates any input
+strings~\cite{Ford2004}. Pest users have reported that the tool
+fails to detect grammars that loop on some inputs~\cite{PESTBUG}.
+Aiming to solve this problem, we proposed a formalization of a generalized
+version of these Pest operators using operational semantics and
+an extended version of a type system for PEGs~\cite{Ribeiro19} and its
+inference algorithm~\cite{Cardoso23} to deal with these operators.
+
+Specifically, we make the following contributions:
+
+\begin{itemize}
+  \item We formalize both stack and the new repetitions Pest operators using
+    operational semantics and an extended version of a type system for PEGs~\cite{Ribeiro19}
+    to deal with these new operations. The proposed semantics is realized by an
+    intrisincally-typed definitional interpreter~\cite{Poulsen17} and we prove
+    a type soundness theorem~\cite{Amin17} for it using the Lean 4 proof assistant~\cite{demoura2021}.
+    The complete formalization source code is available on-line~\cite{pegrepository}.
+  \item We include operations to query the top-most element of the stack
+    which can be used to handle context-sensitive formats, like length
+    indexed fields, common in binary data formats;
+  \item We show how to extend a type inference algorithm~\cite{Cardoso23} for PEGs
+    to deal with Pest's new operators. A prototype implementation of the inference
+    algorithm was developed using the Racket programming language~\cite{Culpepper19}
+    and used to check some example grammars.
+\end{itemize}
+
+This paper extends our previous work~\cite{Daher25} by: 1) giving details of the
+formalization of the type system and the proposed semantics in Lean 4; 2)
+a certified proof of a type soundness theorem for Pest-style grammars and 3)
+we give additional examples of how our generalized semantics can be used to
+express complex formats in an elegant way.
+
+The rest of this paper is organized as follows.
+Section~\ref{sec:pest-operators} presents an informal description of Pest operators.
+Section~\ref{sec:background}
+reviews the syntax, semantics, a type system for
+PEGs and provides an overview of the some features of Lean 4 used in our formalization.
+Section~\ref{sec:pest-formalization} defines the syntax, semantics, the type
+system and its inference algorithm for the new PEG operators. Section~\ref{sec:typesoundnesslean}
+describes our formalization of the type soundness theorem for Pest grammars using Lean 4.
+Section~\ref{sec:examples}
+presents some examples of grammars accepted by our tool.
+Related work is discussed on Section~\ref{sec:related} and
+Section~\ref{sec:conclusion} concludes.
+
+
+\section{An overview of Pest new operators}~\label{sec:pest-operators}
+
+Before starting the description of each new operator, we describe
+\emph{repetition indexes}, which are values ranged over natural numbers and a
+special value, \textbf{infty}, which denotes an upper-bound over
+indexes\footnote{For any index $i \neq \mathbf{infty}$, we have
+that $i < \mathbf{infty}$ and $i \circ \mathbf{infty} = \infty$}.
+Notation $\circ$ denotes either addition
+or multiplication operations over natural numbers. The constants
+\textbf{top.tonat} and \textbf{top.length} refer to the conversion
+of the stack top element to a numeric value and its size, respectively.
+More details on how these operations work will be described
+on the semantics.
+
+The first operator we consider is the iterated repetition, denoted $e^i$ in
+the abstract syntax and \verb|e^i| in the concrete syntax. It describes that
+expression $e$ should be repeated $i$ times over the input, failing if any of these iterations
+results in a parser failure. As an example of the usefulness of this operator, consider
+the task of representing a PEG for a format formed by two bytes values followed by
+a single bit terminator. We could express this simple format as the following
+grammar using the iterated repetition:
+\begin{verbatim}
+bit <-- '0' / '1'
+byte <-- bit^8
+start: byte^2 ~ bit
+\end{verbatim}
+Notation \verb|'0'| denotes an expression for a string,
+operator \verb|~| denotes concatenation (following Pest concrete syntax),
+\verb|A <-- e| denotes a grammar rule and \verb|start:| specifies
+the starting expression for this grammar. The usage of the iterated
+repetition operator allows for concise description of pattern ``2 bytes''
+as simply \verb|byte^2|, which indicates that non terminal \verb|byte|
+should be repeated two times over the input.
+
+The Pest tool also introduces an interval repetition operator, $e[i,j]$,
+which executes the expression $e$ a number of times between the indexes $i$
+and $j$, inclusive. As an example of this operator usage, consider the
+task of parsing either 2, 3 or 4 bits sequences from input. This could be
+expressed elegantly by the following expression using the interval repetition:
+\verb|('0' / '1')[2,4]|.
+
+However, not all combinations of indexes are allowed in repetition operators.
+An example of an invalid repetition operator: \verb|e[infty, 2]|, since a
+bounded repetition, \verb|e[i,j]|, is valid if $i < j$ and $i$ is not the constant
+\verb|infty|. Regarding the exact repetition operator, $e^i$, index $i$ is not allowed to
+be \textbf{infty}, since its semantics is to parse the input by repeating
+an expression $e$ \textbf{exactly} $i$ times, which makes the expression
+$e^{\mathbf{infty}}$ to be repeat indefinitely over the input.
+
+Now, we turn our attention to the stack manipulation operators. Expression
+\verb|push(e)| parses the input using the expression \texttt{e} and pushes the
+consumed input on the parser stack. Operator \verb|pop| removes the current
+stack top-most element and tries to match it on the current input,
+\verb|peek| also matches the input without removing the element from the
+stack and \verb|drop| removes the first element of current stack, without
+matching it. The operator \verb|peekall| tries to match the input using the
+complete stack content, without emptying the stack. Finally, \verb|dropall|
+empties the stack.
+
+One interesting example use of stack operators is to parse
+length-indexed fields present in several data formats.
+The next grammar shows how to express netstrings, which is a format method
+for strings which contains a field to denote the size of the represented data.
+\begin{verbatim}
+number <-- '0' / '1' / ... / '9'
+letter <-- 'a' / ... / 'z'
+char <-- number / letter
+
+start: push(number+) ~ ':' ~ char^top.tonat ~ ','
+\end{verbatim}
+The starting expression begins by pushing the input size value on the parser stack,
+and then access this size information using \verb|top.tonat| to parse the exact
+quantity of input based on the size information that starts the netstring.
+Operators \verb|top.tonat| and \verb|top.length| are not present in the current
+definition of Pest parser generator. We include both since they have a direct
+formalization and increases the expressivity for Pest grammars which can be used
+to represent length-indexed fields, which are notoriously difficult to parse
+correctly~\cite{Zhang23, Lucks17}.
+
+
+\section{Background}\label{sec:background}
+
+\paragraph{An Overview of PEGs}
+
+Intuitively, PEGs are a formalism for describing top-down parsers.
+Formally, a PEG is a 4-tuple $(V,\Sigma,R,e_S)$, where $V$ is a
+finite set of variables, $\Sigma$ is the alphabet, $R$ is the finite
+set of rules, and $e_s$ is the start expression. Each rule $r \in R$ is a
+pair $(A,e)$, usually written $A \leftarrow e$, where $A \in V$ and $e$
+is a parsing expression. We let the meta-variable $a$ denote an
+arbitrary alphabet symbol, $A$ a variable and $e$ a parsing expression.
+Following common practice, all meta-variables can appear primed or
+sub-scripted. The following context-free grammar defines
+the syntax of a parsing expression:
+\[
+\begin{array}{lcl}
+e & \to  & \epsilon \,\mid\, a \,\mid\, A\,\mid\,e_1\:e_2\,
+\mid\,e_1\,/\,e_2\,\mid\,e^\star\,\mid\,!\,e\\
+\end{array}
+\]
+The execution of parsing expressions is defined by an inductively defined
+judgment that relates pairs formed by a parsing expression and an input string
+to pairs formed by the consumed prefix and the remaining string.
+Notation $(e,s) \Rightarrow_G (s_p,s_r)$ denote that parsing expression $e$
+consumes the prefix $s_p$ from the input string $s$ leaving the suffix $s_r$.
+The notation $(e,s) \Rightarrow_G \bot$ denote the fact that $s$ cannot be parsed by
+$e$. We let meta-variable $r$ denote an arbitrary parsing result, i.e.,
+either $r$ is a pair $(s_p,s_r)$ or $\bot$. We say that an expression $e$
+fails if its execution over an input produces $\bot$; otherwise, it succeeds.
+Figure~\ref{fig:pegsemantics} defines the PEG semantics.
+\begin{figure*}[h!]
+   \[
+      \begin{array}{cc}
+         \infer[_{\{Eps\}}]{(\epsilon,s)\Rightarrow_G (\epsilon,s)}{} &
+         \infer[_{\{ChrS\}}]{(a,as_r) \Rightarrow_G (a,s_r)}{} \\ \\
+         \infer[_{\{ChrF\}}]{(a,bs_r) \Rightarrow_G \bot}{a \neq b} &
+         \infer[_{\{Var\}}]{(A,s) \Rightarrow_G r}
+                           {A \leftarrow e \in R & (e,s) \Rightarrow_G r} \\ \\
+         \infer[_{\{Not_S\}}]{(!\,e,s) \Rightarrow_G (\epsilon,s)}
+         {(e,s) \Rightarrow_G \bot}
+           &
+         \infer[_{\{ChrNil\}}]{(a,\epsilon) \Rightarrow_G \bot}{}\\ \\
+
+         \multicolumn{2}{c}{
+            \infer[_{\{Cat_{S1}\}}]{(e_1\,e_2,s_{p_1}s_{p_2}s_r) \Rightarrow_G (s_{p_1}s_{p_2}, s_r)}
+                                 {(e_1,s_{p_1}s_{p_2}s_r) \Rightarrow_G (s_{p_1},s_{p_2}s_r) &
+                                 (e_2,s_{p_2}s_r)\Rightarrow_G (s_{p_2},s_r)}
+         } \\ \\
+         \multicolumn{2}{c}{
+            \infer[_{\{Cat_{F2}\}}]{(e_1\,e_2,s_ps_r) \Rightarrow_G \bot}
+                                 { (e_1,s_ps_r) \Rightarrow_G (s_p,s_r) &
+                                    (e_2,s_r) \Rightarrow_G \bot}} \\ \\
+         \infer[_{\{Cat_{F1}\}}]{(e_1\,e_2,s)\Rightarrow_G \bot}{(e_1,s) \Rightarrow_G \bot} &
+         \infer[_{\{Alt_{S1}\}}]{(e_1\,/\,e_2,s_p\,s_r) \Rightarrow_G (s_p,s_r)}
+                                {(e_1,s_p\,s_r)\Rightarrow_G (s_p,s_r)}\\ \\
+         \multicolumn{2}{c}{
+            \infer[_{\{Alt_{S2}\}}]{(e_1\,/\,e_2,s_p\,s_r) \Rightarrow_G r}
+                                  {(e_1,s_p\,s_r)\Rightarrow_G \bot &
+                                   (e_2,s_p\,s_r)\Rightarrow_G r}
+         } \\ \\
+         \multicolumn{2}{c}{
+            \infer[_{\{Star_{rec}\}}]{(e^\star,s_{p_1}s_{p_2}s_r) \Rightarrow_G (s_{p_1}s_{p_2},s_r)}
+                                 {(e,s_{p_1}s_{p_2}s_r) \Rightarrow_G (s_{p_1},s_{p_2}s_r) &
+                                  (e^\star, s_{p_2}s_r) \Rightarrow_G (s_{p_2},s_r)}
+         }\\ \\
+         \multicolumn{2}{c}{
+            \infer[_{\{Star_{end}\}}]{(e^\star,s) \Rightarrow_G (\epsilon,s)}
+                                    {(e,s) \Rightarrow_G \bot}} \\ \\
+         \multicolumn{2}{c}{
+            \infer[_{\{Not_F\}}]{(!\,e,s_p\,s_r) \Rightarrow_G \bot}
+                               {(e,s_p\,s_r) \Rightarrow_G (s_p,s_r)}
+         }
+     \end{array}
+   \]
+   \centering
+   \caption{Parsing expressions operational semantics.}
+   \label{fig:pegsemantics}
+\end{figure*}
+We comment on some rules of the semantics. Rule $_{Eps}$ specifies that
+expression $\epsilon$ will not fail on any input $s$ by leaving it unchanged.
+Rule $_{ChrS}$ specifies that an expression $a$ consumes the first character when
+the input string starts with an `a' and rule $_{ChrF}$ shows that it fails when
+the input starts with a different symbol. Rule $_{Var}$ parses the input using
+the expression associated with the variable in the grammar $G$. When parsing a
+sequence expression, $e_1\:e_2$, the result is formed by $e_1$ and $e_2$ parsed
+prefixes and the remaining input is given by the result $e_2$. Rules $_{Cat_{F1}}$ and
+$_{Cat_{F2}}$ say that if $e_1$ or $e_2$ fail, then the whole expression fails.
+The rules for choice impose that we only try
+expression $e_2$ in $e_1 / e_2$ when $e_1$ fails. Parsing a star
+expression $e^\star$ consists in repeatedly execute $e$ on the input string.
+When $e$ fails, $e^\star$ succeeds without consuming any symbol of the input
+string. Finally, the rules for the not-predicate expression, $!\,e$, specify
+that whenever the expression $e$ succeeds on input $s$, $!\,e$ fails; and when $e$
+fails on $s$ we have that $!\,e$ succeeds without consuming any input.
+
+\paragraph{A type system for PEGs}
+
+A key issue in the PEG formalism is to ensure the termination of the parsing algorithm
+for arbitrary inputs. Ford~\cite{Ford2004} proposed a well-formedness predicate
+which is computed as fixed-point over the set of grammar's sub-expressions.
+In simple terms, a PEG can loop indefinitely over an input string if: 1) it has
+direct or indirect left-recursive rules ; 2) expressions that succeed without
+consuming any symbol under the Kleene star operator.
+As pointed by~\cite{Ribeiro19}, one inconvenience of Ford's well-formedness predicate
+is that it is not compositional.
+Based on this observation, the work~\cite{Ribeiro19} propose a type
+system that guarantees termination by restricting valid expressions to those
+that do not obey conditions 1 and 2. In order to ensure these restrictions,
+types are interpreted as records containing two fields:
+a boolean value indicating that the current expression may succeed without
+consuming anything from the input string and a set of variables that can
+appear as the first symbol on the recognition branch from the current parsing
+expression. This set (named head-set) is defined by recursion on the parsing
+expression syntax as follows:
+\[
+  \begin{array}{lcl}
+    head (\epsilon) & = & \emptyset \\
+    head (a) & = & \emptyset \\
+    head (A) & = & \{A\} \cup head(R(A)) \\
+    head (e_1\,e_2) & = & \left\{
+                          \begin{array}{ll}
+                            head(e_1) \cup head(e_2) & \text{if }e_1 \rightharpoonup 0\\
+                            head(e_1) & \text{otherwise}
+                          \end{array}
+                                        \right. \\
+    head(e_1\,/\,e_2) & = & head(e_1) \cup head(e_2) \\
+    head(e^\star) & = & head(e) \\
+    head(!\,e)    & = & head(e)
+  \end{array}
+\]
+Basically, the head-set of $\epsilon$ and $a \in \Sigma$ is the empty set.
+For a non terminal, the head-set is formed by the non terminal itself plus
+the head-set of its associated parsing expression. The head-set of a sequence
+expression $e_1\:e_2$ need to include the head-set of $e_2$, whenever $e_1$
+succeeds without consuming anything ($e_1 \rightharpoonup 0$). Otherwise,
+$head(e_1\:e_2)$ is just $head(e_1)$. The set of non terminals for the choice
+operator is the union of the head-set of its operands. Finally, the head-set
+for the Kleene star and not operator are just the set for its underlying expressions.
+Following~\cite{Ribeiro19}, $\tau$ denotes an arbitrary type, $\tau.null$
+denotes the boolean field of $\tau$, and $\tau.head$ the set of
+variables that can appear as the first symbol of $\tau$'s parsing expression.
+We let notation $\langle b , S \rangle$ denote a type $\tau$ formed by a
+boolean $b$ and a set $S$. In the type system~\cite{Ribeiro19}, we use the following operations:
+\[
+  \begin{array}{l}
+    b \Rightarrow S = \text{if } b \text{ then } S \text{ else }\emptyset\\
+    \tau_1 \otimes \tau_2 = \langle \tau_1.null \land \tau_2.null,
+                                \tau_1.head \cup (\tau_1.null \Rightarrow \tau_2.head) \rangle \\
+    \tau_1 \oplus \tau_2 = \langle \tau_1.null \lor \tau_2.null,
+                                \tau_1.head \cup \tau_2.head\rangle\\
+    !\,\tau = \langle true , \tau.head \rangle\\
+    \langle false, S \rangle^\star = \langle true, S \rangle
+  \end{array}
+\]
+The first operation is a boolean test that returns the set $S$
+whenever the condition is true. The product operation ($\tau_1 \otimes \tau_2$) combines two
+types by taking the conjunction of their boolean flags and the union of their respective
+head-sets in case $\tau_1.null$ is true. The co-product operation ($\tau_1 \oplus \tau_2$) on types is similar to the
+product, but instead of using conjunction it takes the disjunction of their boolean fields.
+The not operation on types just change its boolean field to true and keep its head-set.
+The last operation is the Kleene star on types, which also sets its boolean field to true.
+However, the Kleene is only defined for types $\tau$ such that $\tau.null = false$, being
+undefined when $\tau.null = true$. Finally, following the common practice, the meta-variable
+$\Gamma$ denotes a typing context and notation $\Gamma(A) = \tau$ holds whenever
+$(A,\tau) \in \Gamma$.
+The type system is defined as an inductive judgment
+$\Gamma \vdash e : \tau$ in Figure~\ref{fig:typesystem}. A
+PEG $G = (V,\Sigma,R,e_S)$ is considered well-typed, written $\Gamma \vdash G$,
+if $\forall A \in V . R(A) : \Gamma (A)$.
+
+\begin{figure}[h!]
+\[
+  \begin{array}{cc}
+    \infer{\Gamma \vdash \epsilon : \langle true , \emptyset \rangle}{} &
+    \infer{\Gamma \vdash a : \langle false , \emptyset\rangle}{} \\ \\
+    \multicolumn{2}{c}{
+      \infer{\Gamma \vdash A : \langle \tau.null, \tau.head \cup {A}\rangle}
+            {\Gamma(A) = \tau & A \not\in \tau.head}
+    }\\ \\
+    \infer{\Gamma\vdash e_1\,/\,e_2 : \tau_1 \oplus \tau_2}
+          {\Gamma \vdash e_1 : \tau_1 & \Gamma \vdash e_2 : \tau_2}
+    &
+    \infer{\Gamma\vdash !\,e :\, !\,\tau}
+          {\Gamma \vdash e : \tau}\\ \\
+    \infer{\Gamma\vdash e_1\,e_2 : \tau_1 \otimes \tau_2}
+          {\Gamma \vdash e_1 : \tau_1 & \Gamma \vdash e_2 : \tau_2} &
+    \infer{\Gamma\vdash e^\star : \tau^\star}
+          {\begin{array}{c}
+             \Gamma \vdash e : \tau\\
+             \tau.null = false\\
+           \end{array}}
+  \end{array}
+\]
+\centering
+\caption{Type system definition.}
+\label{fig:typesystem}
+\end{figure}
+
+The first rule of the type system specifies that a parsing
+expression $\epsilon$ has type $\langle true, \emptyset \rangle$.
+The rule of a single character expression says that its type is
+$\langle false, \emptyset\rangle$, since it does not succeed without
+consuming a symbol and no variable can appear as the head of its
+recognition branch, i.e., its head-set is $\emptyset$. The type of a prioritized
+choice expression ($e_1/e_2$) has type $\tau_1 \oplus \tau_2$,
+where $\Gamma \vdash e_1 : \tau_1$ and $\Gamma \vdash e_2 : \tau_2$.
+The type of a sequence expression is given by the product operation
+on their sub-expressions types, and the star operation is only well-typed
+if its underlying expression does not succeed without consuming
+a symbol. A not-predicate parsing expression always has the type
+$\langle true,\tau.head \rangle$ whenever its sub-expression is well-typed.
+Finally, a variable is well-typed only if its type is in the context and
+itself does not belong to its head-set.
+The type system proposed by~\cite{Ribeiro19} readily rejects invalid expressions like
+$a(!b / c)^\star$, since it only considers well-typed a Kleene parsing
+expressions in which an underlying expression does
+not succeed without consuming the input. However, an inconvenience of it is
+the need to require type annotations on all grammar's non terminals.
+A later work~\cite{Cardoso23} proposes a type inference algorithm, which
+guarantees termination of the parsing process.
+
+\paragraph{An overview of the Lean 4 proof assistant}
+The Lean proof assistant started as a Microsoft Research
+open source project in 2013. Lean is based on the
+calculus of inductive constructions~\cite{Nederpelt14} and it supports
+inductive types and functions, type classes, macros and an efficient
+C backend~\cite{demoura2021}. The Lean proof assistant has been used
+with success to formalize several mathematical theories in the
+Mathlib project~\cite{Mathlib}.
+
+In this work, we use the Lean 4 proof assistant to prove a
+type soundness result for the type system developed for
+Pest-style grammars. In order to present the main features
+of Lean used in the formalization, we will present the
+encoding of a type soundness result for a simple language of
+arithmetic expressions, proposed in~\cite{Pierce02}. We
+start by defining its syntax using inductive types, as follows:
+
+\begin{lstlisting}
+inductive Ty : Type where
+| NAT | BOOL
+
+inductive Exp : Ty → Type where
+| True : Exp .BOOL
+| False : Exp .BOOL
+| Zero : Exp .NAT
+| Succ : Exp .NAT → Exp .NAT
+| Pred : Exp .NAT → Exp .NAT
+| IsZero : Exp .NAT → Exp .BOOL
+| If : ∀ {t}, Exp .BOOL → Exp t → Exp t → Exp t
+\end{lstlisting}
+
+An inductive type defines a new type name, its sort,
+and a set of its data constructors. In the previous code
+piece, we have two inductive types: one for representing
+types, \lstinline|Ty|, and another for expressions, \lstinline|Exp|.
+The sort \lstinline|Type| is the "type" of usual datatypes in Lean
+and forms a hierarchy indexed by levels, where types of a lower level
+are contained in higher ones. In the previous definition, inductive type
+\lstinline|Ty| is defined in sort \lstinline|Type| and consists of two
+constructors representing the base types of the expression language:
+\lstinline|NAT| for natural numbers and \lstinline|BOOL| for booleans.
+The \lstinline|Exp| type follows the so-called intrinsically-typed
+representation of programs~\cite{Poulsen17,Feitosa22}, which ensures that only
+well-typed programs can be constructed. Specifically, \lstinline|Exp| is
+indexed by \lstinline|Ty|, meaning that each expression constructor is
+associated with its type. The boolean constructors \lstinline|True| and
+\lstinline|False| produce expressions of type \lstinline|Exp .BOOL|,
+while \lstinline|Zero| produces an expression of type \lstinline|Exp .NAT|.
+The \lstinline|Succ| and \lstinline|Pred| constructors are functions that
+take a natural number expression and return a natural number expression,
+enforcing that these operations apply only to naturals. The
+\lstinline|IsZero| constructor maps from \lstinline|Exp .NAT| to
+\lstinline|Exp .BOOL|, representing an equal-to-zero test for numeric values.
+Finally, the \lstinline|If| constructor takes a boolean condition and ensures that
+its two branches have the same type, \lstinline|Exp t|. This intrinsic typing
+discipline renders ill-typed terms inexpressible, guaranteeing type safety by
+construction.
+
+Following~\cite{Amin17}, the next ingredient in our type soundness proof is
+the definition of an interpreter for the expression language. Before presenting
+the interpreter, we need to define the semantic values which will be the
+result of evaluating expressions. Values are either boolean constants,
+zero or the successor of a numeric value. We denote values by the following
+inductive types.
+\begin{lstlisting}
+inductive Val : Ty → Type where
+| True : Val .BOOL
+| False : Val .BOOL
+| Zero : Val .NAT
+| Succ : Val .NAT → Val .NAT
+\end{lstlisting}
+The intepreter is defined by the \lstinline|interp| function which is a
+fuel-based interpreter for expressions, mapping each well-typed
+expression \lstinline|e : Exp t| to an optional value
+\lstinline|Option (Val t)|. The only situation in which the intepreter
+produces a \lstinline|Option.none| result is when the fuel counter reachs
+zero. The usage of fuel based interpreters is a standard technique for
+implementing semantics in proof assistants~\cite{Amin17}.
+
+\begin{lstlisting}
+def interp {t}(fuel : ℕ)(e : Exp t) : Option (Val t) :=
+  match fuel with
+  | 0 => .none
+  | fuel1 + 1 =>
+    match e with
+    | .True => .some Val.True
+    | .False => .some .False
+    | .Zero => .some .Zero
+    | .Succ e1 => do
+        let v ← interp fuel1 e1
+        vsucc v
+    | .Pred e1 => do
+        let v ← interp fuel1 e1
+        vpred v
+    | .IsZero e1 => do
+        let v ← interp fuel1 e1
+        viszero  v
+    | .If e1 e2 e3 => do
+        let v ← interp fuel1 e1
+        match v with
+        | .True => interp fuel1 e2
+        | .False => interp fuel1 e3
+\end{lstlisting}
+
+The interpreter starts by pattern matching on the fuel argument, returning
+\lstinline|.none|\footnote{It possible to omit the type name in data
+constructor expressions, when Lean is able to infer its correct type
+from the expression context.}, when \lstinline|fuel = 0|.
+For non-zero fuel values, the function pattern matches on the expression
+structure. The base cases for boolean and natural number literals
+(\lstinline|True|, \lstinline|False|, and \lstinline|Zero|) immediately
+return their corresponding semantic values wrapped in the \lstinline|some| constructor.
+For the composite cases, the function uses Lean's do-notation to
+sequence computations in the \lstinline|Option| monad. The successor,
+predecessor, and zero-test operations (\lstinline|Succ|, \lstinline|Pred|,
+and \lstinline|IsZero|) first recursively interpret their subexpressions
+with the decremented fuel value, then apply auxiliary semantic functions
+(\lstinline|vsucc|, \lstinline|vpred|, and \lstinline|viszero|) to the
+resulting values. These functions only compute the resulting value and
+wrap them using \lstinline|Option.some| constructor. As an example,
+we present the definition of \lstinline|viszero|:
+\begin{lstlisting}
+def viszero (v : Val .NAT) : Option (Val .BOOL) :=
+  match v with
+  | .Zero => .some .True
+  | _     => .some .False
+\end{lstlisting}
+which return \lstinline|.True| when the input value is \lstinline|.Zero|
+and \lstinline|False|, otherwise. We omit definitions for \lstinline|vsucc| and
+\lstinline|vpred| for brevity, since they follow a similar pattern.
+Finally, the conditional expression \lstinline|If| evaluates its
+boolean condition \lstinline|e1|, then pattern matches on the
+resulting value to determine which branch to evaluate.
+
+Type soundness result states that ``well-typed programs cannot
+go wrong'' which, in simple terms, means that a well-typed program
+cannot result in a runtime error~\cite{Pierce02}.
+Following~\cite{Amin17}, we state the theorem by specifying that
+the interpreter results are either \lstinline|.none| or a value of
+the same type of the input expressions. The Lean 4 encoding of this
+theorem is:
+
+\begin{lstlisting}
+theorem soundness
+  : ∀ fuel t (e : Exp t) r, interp fuel e = r →
+    r = .none ∨ ∃ (v : Val t), r = .some v
+\end{lstlisting}
+
+We prove this result by induction over the \lstinline{fuel} argument using
+the definition of the interpreter. The interested reader could consult the
+proof details in the on-line repository~\cite{pegrepository}.
+
+\section{Formalizing Pest operators}~\label{sec:pest-formalization}
+
+% We start by presenting the syntax of the new PEG operators, together with
+% some examples. Next, we present the formal semantics of the new operators,
+% giving details on repetition indexes are normalized. Finally, we describe
+% our extension of Ribeiro et. al. type system~\cite{Ribeiro19} which
+% guarantee termination of grammars using the new operators.
+
+\paragraph{New operators syntax}
+The Pest tool includes two types of operators: stack and repetition operators.
+The syntax of these operators are defined next:
+\[
+\begin{array}{lcl}
+  e & \to  & ...\,\mid\,e^i\,\mid\,e[i,i]\,\mid\,\mathbf{push}\,\mid\,\mathbf{pop}\,\mid\,\mathbf{peek}
+             \,\mid\,\mathbf{drop}\\
+    & \mid & \mathbf{peekall}\,\mid\,\mathbf{dropall}\\
+  i & \to  & \mathbf{top.tonat}\,\mid\,\mathbf{top.length}\,\mid\,i \circ i\,\mid\,v\\
+  v & \to  & \mathbf{infty}\,\mid\,n,m\in\mathbb{N}\\
+  \sigma & \to & s : \sigma\,\mid\,[] \\
+  \circ & \to & + \,\mid\, \times
+\end{array}
+\]
+Meta-variable $s$ denotes an arbitrary string using grammar's alphabet.
+We let meta-variable $\sigma$ denote the parser stack and we represent it
+using Haskell-style list notation.
+
+\paragraph{Semantics of new operators}
+Now that we have introduced the syntax and the informal semantics of the new Pest
+operators, we turn our attention to its formal semantics. One important aspect
+of Pest repetition operators is the usage of indexes. Before evaluating any
+of these new operators we need to reduce indexes to a normal form.
+We consider that an index is in normal form if it is a number or the constant
+\textbf{infty}. We let meta-variable $v$ denote an arbitrary index normal form.
+In simple terms, the index normalization algorithm performs the following steps:
+
+\begin{enumerate}
+  \item Evaluate $\mathbf{top.length}$ and $\mathbf{top.tonat}$, if
+    they are present in the current index. The usage of these operators
+    can result in a run-time error if the parser stack is empty or the
+    stack first element can not be converted to a number (for $\mathbf{top.tonat}$).
+  \item Reduce all arithmetic operations using their usual meaning and
+    the following reduction rules
+    when the constant \textbf{infty} is present:
+\[
+  \begin{array}{c}
+    n \circ \mathbf{infty} \rightarrow \mathbf{infty}\\
+    \mathbf{infty}\circ n \rightarrow \mathbf{infty}\\
+    \mathbf{infty}\circ\mathbf{infty} \rightarrow \mathbf{infty}\\
+  \end{array}
+\]
+where $\circ$ denotes either addition or multiplication and $n$ a
+numeric value.
+\end{enumerate}
+
+The semantics is denoted by the inductive judgment
+(Figures~\ref{fig:newsemantics},~\ref{fig:exactsemantics} and~\ref{fig:intervalsemantics})
+$(e, w, \sigma) \Rightarrow_G r$,
+where $e$ is the current expression being executed, $w$ is the current input string,
+$\sigma$ is the current input parser stack, $G$ is the grammar and $r$ is the output
+which can be: 1) success, denoted by triple $(w_1,w_2,\sigma')$ where $w_1$
+is the parsed prefix, $w_2$ is the remaining input and $\sigma'$ is the resulting
+stack from executing the expression $e$, or; 2) failure, denoted by $\bot$.
+The inclusion a stack requires changing the semantics of all standard PEG
+operators to thread the current stack state through parser execution.
+We omit these modified rules, since they don't add any interesting insight.
+\begin{figure*}[h!]
+  \[
+    \begin{array}{cc}
+      \infer[_{\{PUSH_S\}}]
+             {(\mathbf{push}\:e,w,\sigma) \Rightarrow_G (w_1, w_2, (w_1:\sigma'))}
+             {(e,w,\sigma)\Rightarrow_G (w_1,w_2,\sigma')} &
+      \infer[_{\{POP_S\}}]
+            {(\mathbf{pop},w,w_1\,:\,\sigma)\Rightarrow_G (w_1,w_2,\sigma)}
+            {\exists w_2. w = w_1w_2} \\ \\
+        \infer[_{\{DROP_F\}}]
+              {(\mathbf{drop},w,[])\Rightarrow_G \bot}{} &
+      \infer[_{\{POP_F\}}]
+            {(\mathbf{pop},w,\sigma)\Rightarrow_G \bot}
+            {\neg \exists w_1\,w_2\, \sigma'. w = w_1w_2 \land \sigma = w_1\,:\,\sigma'}\\ \\
+      \multicolumn{2}{c}{
+        \infer[_{\{PEEK_F\}}]
+              {(\mathbf{peek},w,\sigma)\Rightarrow_G \bot}
+              {\neg \exists w_1\,w_2\, \sigma'. w = w_1w_2 \land \sigma = w_1\,:\,\sigma'}
+      }\\\\
+      \multicolumn{2}{c}{
+        \infer[_{\{PEEKALL_S\}}]
+              {(\mathbf{peekall},w,\sigma)\Rightarrow_G (w', w'',\sigma)}
+              {\sigma = [w_0, ..., w_n] & w' = w_0...w_n & \exists w'' . w = w'w''}
+      }\\ \\
+      \infer[_{\{PEEK_S\}}]
+              {(\mathbf{peek},w,w_1\,:\,\sigma)\Rightarrow_G (w_1,w_2,w_1 \,:\,\sigma)}
+              {\exists w_2. w = w_1w_2} &
+      \infer[_{\{DROP_S\}}]
+            {(\mathbf{drop},w,w_1\,:\,\sigma)\Rightarrow_G (\epsilon,w,\sigma)}
+            {}\\ \\
+      \multicolumn{2}{c}{
+        \infer[_{\{PEEKALL_F\}}]
+              {(\mathbf{peekall},w,\sigma)\Rightarrow_G \bot}
+              {\sigma = [w_1, ..., w_n] & w' = w_1...w_n & \neg \exists w'' . w = w'w''}
+      }\\ \\
+         \infer[_{\{PUSH_F\}}]
+              {(\mathbf{push}(e),w,\sigma)\Rightarrow_G \bot}
+              {(e,w,\sigma)\Rightarrow_G \bot} &
+             \infer[_{\{DROPALL_F\}}]
+                   {(\mathbf{dropall}, w, [])\Rightarrow_G \bot}
+                   {}
+          \\ \\
+          \multicolumn{2}{c}{
+           \infer[_{\{DROPALL_S\}}]
+                 {(\mathbf{dropall}, w, w_1 : \sigma)\Rightarrow_G (\epsilon, w, [])}
+                 {}
+          }
+  \end{array}
+  \]
+  \caption{Semantics of the stack operators}
+  \label{fig:newsemantics}
+\end{figure*}
+
+Figure~\ref{fig:newsemantics} presents the semantics for the stack manipulation operators.
+Rules $PUSH_S$ and $PUSH_F$ formalize the behaviour of the push operator, which pushes the
+prefix parsed by the push's expression argument into the parser stack or it fails when
+the expression fails. The semantics of the \textbf{pop} operator is defined by rules
+$POP_S$ and $POP_F$, which removes the topmost element of the stack and matching it
+against the input string. When such a matching is not possible, we have a failure.
+The only difference between the semantics for the \textbf{peek} operation and \textbf{pop}
+is that the former keeps the top element in the result stack.
+The \textbf{drop} operator removes the top element of the stack without matching it
+against the current input or it fails when the stack is empty (check rules $DROP_S$ and
+$DROP_F$). Rules $PEEKALL_S$ and $PEEKALL_F$ use the whole stack content to match
+the current input, failing if all the stack elements do not form a prefix of the current
+input and $DROPALL_S$ simply empties the parser stack.
+
+\begin{figure*}[h!]
+  \[
+    \begin{array}{c}
+      \infer[_{\{EX_{S1}\}}]
+            {(e^i, w, \sigma)\Rightarrow_G (\epsilon,w,\sigma)}
+            {\mathbf{norm}(i,\sigma) = 0} \\ \\
+        \infer[_{\{EX_{S2}\}}]
+              {(e^i,w,\sigma) \Rightarrow_G (w_1w'_1,w'_2,\sigma')}
+              {\begin{array}{c}
+                \mathbf{norm}(i,\sigma) = n \\
+                (e,w,\sigma)\Rightarrow_G(w_1,w_2,\sigma_1)
+               \end{array} &
+               \begin{array}{c}
+                 0 < n \\
+                 (e^{n - 1},w_2,\sigma_1)\Rightarrow_G (w'_1,w'_2,\sigma')
+               \end{array}}\\ \\
+          \infer[_{\{EX_{F1}\}}]
+                {(e^i,w,\sigma)\Rightarrow_G \bot}
+                {\begin{array}{c}
+                  \mathbf{norm}(i,\sigma) = n \\
+                  0 < n \quad (e,w,\sigma)\Rightarrow_G \bot
+                \end{array}} \\ \\
+            \infer[_{\{EX_{F2}\}}]
+                  {(e^i,w,\sigma) \Rightarrow_G \bot}
+                  {\begin{array}{c}
+                    \mathbf{norm}(i,\sigma) = n \\
+                    (e,w,\sigma)\Rightarrow_G(w_1,w_2,\sigma_1)
+                  \end{array} &
+                  \begin{array}{c}
+                    0 < n \\
+                    (e^{n - 1},w_2,\sigma_1)\Rightarrow_G \bot
+                  \end{array}}
+    \end{array}
+  \]
+  \caption{Semantics for the exact repetition operator}
+  \label{fig:exactsemantics}
+\end{figure*}
+
+The semantics for the exact repetition operator is presented in
+Figure~\ref{fig:exactsemantics}.
+The first rule, $EX_{S1}$, shows that for any expression $e$, $e^0$ consumes the
+empty string from the input and does not change the parser stack. The second rule,
+$EX_{S2}$, shows that to evaluate $e^i$, we first normalize the index $i$ to obtain
+a numeric value, $n$. Next, we check if $0 < n$ and parse the input using $e$ producing
+a remaining suffix $w_2$, which is used as input for running the expression $e^{n - 1}$.
+We say that the repetition operator $e^i$ fails if any iteration of $e$ results in a failure,
+as formalized by rules $EX_{F1}$ and $EX_{F2}$.
+
+
+\begin{figure*}[h!]
+  \[
+    \begin{array}{cc}
+      \infer[_{\{Inter_{1}\}}]
+            {(e[i,j],w,\sigma) \Rightarrow_G r}
+            {\begin{array}{c}
+               \mathbf{norm}(i,\sigma) = n \\
+               \mathbf{norm}(j,\sigma) = n \\
+               (e^n,w, \sigma)\Rightarrow r
+           \end{array}} &
+      \infer[_{\{Inter_2\}}]
+            {(e[i,j],w,\sigma)\Rightarrow_G (w_1,w_2,\sigma')}
+            {\begin{array}{c}
+              \mathbf{norm}(i,\sigma) = n \\
+              \mathbf{norm}(j,\sigma) = m \\
+              n < m \\
+              (e^{m}, w, \sigma)\Rightarrow_G (w_1,w_2,\sigma')
+          \end{array}} \\ \\
+      \infer[_{\{Inter_{F1}\}}]
+            {(e[i,j], w, \sigma) \Rightarrow_G \bot}
+            {\begin{array}{c}
+                \mathbf{norm}(i,\sigma) = n\\
+                \mathbf{norm}(j,\sigma) = m\\
+                n > m\\
+            \end{array}} &
+        \infer[_{\{Inter_3\}}]
+              {(e[i,j], w, \sigma) \Rightarrow_G r}
+              {\begin{array}{c}
+                  \mathbf{norm}(i,\sigma) = n \\
+                  \mathbf{norm}(j,\sigma) = m \\
+                  n < m \\
+                  (e^{m},w,\sigma)\Rightarrow_G \bot  \\
+                  (e[n,m - 1],w, \sigma)\Rightarrow_G r
+              \end{array}}
+        \\ \\
+        \multicolumn{2}{c}{
+          \infer[_{\{Inter_{I}\}}]
+                {(e[i,j], w, \sigma) \Rightarrow_G r}
+                {\begin{array}{c}
+                    \mathbf{norm}(i,\sigma) = n\\
+                    \mathbf{norm}(j,\sigma) = \mathbf{infty} \\
+                    (e^n\,e^{\star},w,\sigma)\Rightarrow_G r
+                  \end{array}
+              }}
+    \end{array}
+  \]
+  \centering
+  \caption{Semantics for the interval repetition operator}
+  \label{fig:intervalsemantics}
+\end{figure*}
+
+The last set of semantics rules deals with interval repetition operator,
+$e[i,j]$. Rule $Inter_{1}$ parses the input using $e^n$, when both of indexes
+normalize to the same numeric value $n$. The rule $Inter_2$ shows how to run
+an interval repetition when the normalized indexes are such that $n < m$,
+where $\mathbf{norm}(i,\sigma) = n$ and $\mathbf{norm}(j,\sigma) = m$:
+it tries to parse the input using $e^m$, if it succeeds then the result is
+returned. In case of failure of $e^m$, rule $Inter_3$ tries
+to parse the input using the expression $e[n, m -1]$.
+Rule $Inter_{F1}$ specifies that an interval repetition fails when the formalized value of $i$
+is greater than normalized value of $j$.
+The rule deals with the situation when the upper limit bound normalizes to \textbf{infty}.
+In this situation, expression $e[i,j]$ is interpreted as $e^n e^*$, where $n$ is the
+result of normalizing the index $i$.
+
+\subsection{Type system and its inference algorithm}~\label{sec:typesystem}
+
+Now, we turn our attention to extending a type system to avoid
+non termination problems during a grammar execution. We follow
+the approach of defining typing rules and its corresponding
+type inference using the strategy of constraint generation
+followed by a solving step~\cite{Ribeiro19,Cardoso23, Pottier05}.
+
+Before starting discussing the typing rules for the new operators,
+we need to extend the $head$ function. In Figure~\ref{fig:new-head-set},
+we present the new equations which handle both repetions and stack
+operators.
+
+\begin{figure}[H]
+  \[
+    \begin{array}{lcl}
+      head(e^i) & = & head(e)\\
+      head(e[i,j]) & = & head(e)\\
+      head(\mathbf{push}(e)) & = & head(e)\\
+      head(\mathbf{pop}) & = & \emptyset\\
+      head(\mathbf{peek}) & = & \emptyset\\
+      head(\mathbf{drop}) & = & \emptyset\\
+      head(\mathbf{dropall}) & = & \emptyset\\
+      head(\mathbf{peekall}) & = & \emptyset\\
+    \end{array}
+  \]
+  \caption{Head-set equations for the new operators}
+  \label{fig:new-head-set}
+\end{figure}
+The first three equations shows that the head-set of
+repetitions and the push operator are equal to their
+parameter expression set. All the remaining stack operators
+have their head-set equal to $\emptyset$, since they do not
+refer to non terminals.
+
+The following subsections present the extensions needed to
+support typing the new operators.
+
+\subsubsection{Typing rules for the new operators}
+
+We start by defining the typing rules for our new PEG repetition operators.
+Figure~\ref{fig:typing-repetition} presents the typing rules for the new
+repetition operators. Typing rules make use of the following notations:
+1) $\mathbf{norm}^*(i)$ denotes a static analysis
+version of the normalization algorithm in which operators \textbf{top.tonat}
+and \textbf{top.length} are replaced by 0\footnote{This is necessary because these
+operators value depends on the current parser stack state, which is unknown
+during type inference.}; 2) we let $\tau^v$ denote the
+type $\langle v = 0 \lor \tau.null, \tau.head\rangle$ and
+3) notation $\tau[v_1,v_2]$ denote the type
+$\langle v_1 = 0 \lor \tau.null, \tau.head\rangle$.
+
+
+The first type system rule shows that an exact repetition is considered
+nullable if either its underlying expression is nullable or its normalized index
+is equal to $0$. The head-set for an exact repetition is
+the same of its parameter expression. We also restrict that normalized indexes can
+only be numeric values, $n$.
+Typing of the interval repetition operator is similar to exact repetition, but
+we allow the upper interval bound to be \textbf{infty}.
+Intervals are considered nullable when
+its parameter expression is nullable or either the normalized left index, $n$,
+is equal to zero. We also do not allow intervals that have an \textbf{infty}
+upper bound to be nullable, since such parsing expression will diverge
+whenever they succeed without consuming any input.
+
+\begin{figure}[H]
+  \[
+    \begin{array}{cc}
+      \infer{\Gamma \vdash e^i : \tau^n}
+            {\begin{array}{c}
+              \mathbf{norm}^*(i) = n\quad \Gamma \vdash e : \tau \\
+          \end{array}} &
+        \infer{\Gamma\vdash e[i,j] : \tau[n,v] }
+              {\begin{array}{ccc}
+                  \Gamma \vdash e : \tau &
+                  \mathbf{norm}^*(i) = n &
+                  \mathbf{norm}^*(j) = v \\
+                  \multicolumn{3}{c}{
+                  \neg (v \equiv \mathbf{infty} \land\tau.null)}
+               \end{array}}
+    \end{array}
+  \]
+  \caption{Typing rules for new PEG repetition operators}
+  \label{fig:typing-repetition}
+\end{figure}
+
+Figure~\ref{fig:typing-stack} presents the typing rules for the PEG stack
+operators. The first rule specifies that the type for \textbf{push}($e$) is
+the same as $e$, since it simply pushes the $e$'s consumed input and its
+head-set will be the same as $e's$ head-set. Since all other stack operators
+can succeed without consuming input, all of them are considered nullable.
+As presented in Figure~\ref{fig:new-head-set}, the head-set of \textbf{pop},
+\textbf{drop}, \textbf{peek}, \textbf{peekall} and \textbf{dropall} are the
+empty set.
+
+\begin{figure}[H]
+  \[
+    \begin{array}{ccc}
+      \infer{\Gamma \vdash \mathbf{push}(e) : \tau}
+            {\Gamma \vdash e : \tau}
+      &
+      \infer{\Gamma \vdash \mathbf{pop} : \langle true, \emptyset\rangle}{} &
+      \infer{\Gamma \vdash \mathbf{peek} : \langle true, \emptyset\rangle}{} \\ & \\
+      \infer{\Gamma \vdash \mathbf{peekall} : \langle true, \emptyset\rangle}{} &
+      \infer{\Gamma \vdash \mathbf{drop} : \langle true, \emptyset\rangle}{} &
+      \infer{\Gamma \vdash \mathbf{dropall} : \langle true, \emptyset\rangle}{}
+    \end{array}
+  \]
+  \caption{Typing rules for new PEG stack operators}
+  \label{fig:typing-stack}
+\end{figure}
+
+\subsection{Extending the type inference algorithm}
+
+In this section we describe the necessary extensions to the type inference algorithm
+created by Cardoso et. al.~\cite{Cardoso23} to support the new repetitions and
+stack operators.
+
+\paragraph{Extending the constraint syntax} We start by including index normal forms
+on the constraint grammar (taken from~\cite{Cardoso23}). The non terminal $v$ denotes
+a normal form of an index expression, which can be a numeric value or
+constant \textbf{infty}. The complete constraint grammar is as follows:
+
+  \[
+    \begin{array}{lcl}
+      \tau & \to & \alpha\,\mid\,\langle b, S \rangle\\
+      v & \to & n\,\mid\,\mathbf{infty}\\
+      \mathbf{t} & \to & A\,\mid\,b\,\mid\,S\,\mid\,\tau\,\mid\,v\\
+      C    & \to & \mathbf{true}\,\mid\,\mathbf{false}\,\mid\,\mathbf{t} \equiv \mathbf{t}\,\mid\,C \land C\,\mid\, \exists
+                   \alpha.C\,\mid\, \mathbf{def}\:A :\tau\:\mathbf{in}\:C
+    \end{array}
+  \]
+Constraints are first-order logic formulas over types and their meaning
+can be defined inductively. We omit the constraint semantics, since its
+definition is the same presented in~\cite{Cardoso23}.
+
+\paragraph{Extending constraint generation and solving} After including index expressions
+in the constraint syntax, we need to include equations for the new operations
+in the constraint generation algorithm.
+In order to generate constraints for the exact repetition operator, we use
+an existential quantifier to define a new variable, $\alpha$, that is passed
+as argument to the generation of constraints for $e$. The algorithm creates
+an equality between the argument type, $\tau$, and the repetition operator
+type over $\alpha$. We also include an inequality to assert that the
+normalized index should not be \textbf{infty}.
+\[
+  \langle\langle e^i : \tau \rangle\rangle = \exists \alpha . \langle\langle e,\alpha\rangle\rangle \land \tau \equiv \alpha^{\mathbf{norm}^*(i)} \land \mathbf{norm}^*(i) \not\equiv \mathbf{infty}\\
+\]
+Next, we consider the generation of constraints for the interval repetition operator, which
+follows the same pattern of the exact repetition: we generate the constraint for sub-expression
+$e$, considering an existential quantified type variable and create an equality between the variable
+type and the input argument type, $\tau$. We also impose that the interval lower-bound
+cannot be \textbf{infty} and that if the upper-bound is \textbf{infty}, the interval
+underlying expression cannot be nullable since it could make the parser loop indefinitely.
+\[
+  \begin{array}{rl}
+    \langle\langle e[i,j] : \tau \rangle\rangle =   & \exists \alpha . \langle\langle e, \alpha\rangle\rangle \land \tau \equiv \alpha[\mathbf{norm}^*(i),\mathbf{norm}^*(j)]\\
+                                            \land{} & \mathbf{norm}^*(i) \not\equiv\mathbf{infty} \\
+                                            \land{} & \neg (\mathbf{norm}^*(j) \equiv \mathbf{infty} \land \alpha.null)\\
+  \end{array}
+\]
+The constraint for the \textbf{push} operator is just the constraint of its argument expression and
+all other stack expressions just generate an equality between its input argument type and
+$\langle true,\emptyset\rangle$.
+
+\begin{figure}[H]
+  \[
+    \begin{array}{lcl}
+      \langle\langle \mathbf{push}(e) : \tau\rangle\rangle & = & \langle\langle e : \tau \rangle\rangle \\
+      \langle\langle \mathbf{pop} : \tau \rangle\rangle & = & \tau \equiv \langle true, \emptyset \rangle\\
+      \langle\langle \mathbf{drop} : \tau \rangle\rangle & = & \tau \equiv \langle true, \emptyset \rangle\\
+      \langle\langle \mathbf{dropall} : \tau \rangle\rangle & = & \tau \equiv \langle true, \emptyset \rangle\\
+      \langle\langle \mathbf{peek} : \tau \rangle\rangle & = & \tau \equiv \langle true, \emptyset \rangle\\
+      \langle\langle \mathbf{peekall} : \tau \rangle\rangle & = & \tau \equiv \langle true, \emptyset \rangle\\
+    \end{array}
+  \]
+  \caption{Extending the constraint generation algorithm}
+  \label{fig:constraint-gen}
+\end{figure}
+
+The inclusion of index expressions do not change the constraint solver specification~\cite{Cardoso23}.
+Normalized indexes are just integers or the \textbf{infty} and they only appear as part of the
+nullability field of a type, which has its dedicated equation in solver specification, or as part
+of an inequality, which can be easily solved by an SMT solver or a simple custom solving algorithm.
+
+Since the proposed changes (the inclusion of indexes and new operators) do not change the
+constraint solver, just the constraint generation algorithm, we argue that the
+soundness and completeness argument~\cite{Cardoso23} for the type inference algorithm
+also holds for our Pest-style grammars. This lead to our main result:
+
+\begin{Theorem}[Termination of typed grammars]
+  Let $G = (V,\Sigma,R, e_s)$ be a well-typed grammar which may use any of Pest
+  repetition or stack operators. Then, for all $w$, exists $r$
+  such that $(e_s,w,[])\Rightarrow r$.
+\end{Theorem}
+
+The only way for a parsing expression to loop over an input is due to
+the presence of left-recusive rules or nullable expressions
+under a star operator in a grammar~\cite{Ford2004}. Since the type system (and its
+inference algorithm) reject any grammar that have these issues,
+any well-typed grammar is guaranteed to terminate.
+
+\section{Formalizing the type soundness theorem in Lean 4}\label{sec:typesoundnesslean}
+
+In the type theory literature, the Wright and Feilleisen approach for type soundness is
+dominant~\cite{Wright94}. The idea is to split the proof of type soundness in two lemmas:
+1) the preservation lemma, which states that an execution step on a well-typed program
+preserves types; and 2) the progress lemma, which says that every well-typed program is
+either a final result of a computation (a value) or it can give one more execution step.
+As argued by Amin and Rompf~\cite{Amin17}, since such proof style is applicable only on
+the context of languages which do have a small-step / reduction semantics, they propose the use of
+definitional interpreters to formalize soundness in modern proof assistants.
+In this section, we describe our Lean 4 formalization of the type soundness results for our
+type system for Pest grammars using an intrisincally-typed approach, as argued by~\cite{plfa22.08}.
+We start by describing some dependently-typed toolkit
+used in the formalization in Section~\ref{sec:depkit}. Indexes and their
+evaluation procedures are described in Section~\ref{sec:index-lean}. Next, we present
+the intrisincally-typed encoding of grammars (Section~\ref{sec:pest-syntax}) and then,
+in Section~\ref{sec:pest-interpreter}, we describe our implementation of a definitional
+interpreter for grammars and we explain how it enables a simple formalization of the type
+soundness theorem for grammars.
+
+\subsection{Dependently-typed utilities}~\label{sec:depkit}
+
+In the development of our intepreter, we decided to drop variable names and represent
+them as DeBruijn indexes~\cite{DeBruijn72}. There are different approaches for implementing
+De Bruijn indexes in proof assistants~\cite{Ni24}, but in this work we choose an
+inductive type that represent the set of the first $n$ natural numbers.
+\begin{lstlisting}
+inductive fin : ℕ -> Type where
+| zero : ∀ {n}, fin (n + 1)
+| succ : ∀ {n}, fin n → fin (n + 1)
+\end{lstlisting}
+Type \lstinline|fin n| holds exactly $n$ inhabitants which make it perfect to represent
+the finite set of variables of a grammar. Another useful type which is the length
+indexed list type, usually named as vector:
+\begin{lstlisting}
+inductive vec (A : Type) : ℕ → Type where
+| nil : vec A 0
+| cons : ∀ {n}, A → vec A n → vec A (n + 1)
+\end{lstlisting}
+Type \lstinline|vec A n| denotes $n$ element lists of type \lstinline|A|. Constructor
+\lstinline|nil| builds an empty list, which has size $0$ and \lstinline|cons| inserts
+a new element into a $n$ element list to create a new list containing $n + 1$ values.
+The \lstinline|vec.lookup| function provides a safe way to access elements in a
+length-indexed vector by using a bounded index. It takes a vector \lstinline|v|
+which stores \lstinline|n| elements of type \lstinline|A| and an index
+\lstinline|i : fin n| (which is guaranteed to be less than n), and returns the
+element at vector's position \lstinline|i|. The function works recursively
+through pattern matching: when the index is \lstinline|fin.zero|, it returns the
+head of the vector; when the index is \lstinline|fin.succ i1|, it recursively
+looks up \lstinline|i1| in the tail of the vector \lstinline|v1|.
+This implementation eliminates the possibility of index-out-of-bounds errors
+at compile time, since only valid vector positions can be passed as arguments to
+this function.
+\begin{lstlisting}
+def vec.lookup {n}{A : Type}(v : vec A n)(i : fin n) : A :=
+  match i, v with
+  | fin.zero, vec.cons x _ => x
+  | fin.succ i1, vec.cons _ v1 =>
+    vec.lookup v1 i1
+\end{lstlisting}
+The last piece of our toolkit is the \lstinline|vec.all| type. It is a dependent
+predicate that expresses that every element in a vector satisfies a given
+property \lstinline|P|. It's defined inductively to mirror the structure of
+vectors: the nil constructor states that the empty vector trivially satisfies
+\lstinline|vec.all P|, while the \lstinline|cons| constructor requires both
+a proof that the head element \lstinline|x| satisfies \lstinline|P x| and a
+proof that the tail \lstinline|v| satisfies \lstinline|vec.all P v|.
+\begin{lstlisting}
+inductive vec.all {A : Type}(P : A → Type) : ∀ {n}, vec A n → Type where
+| nil : vec.all P nil
+| cons : ∀ {n}{x : A}{v : vec A n}, P x → vec.all P v → vec.all P (vec.cons x v)
+\end{lstlisting}
+Finally, function \lstinline|all.lookup| allow us to get a proof that a
+vector element satisfies a property \lstinline|P| from an index \lstinline|i|.
+\begin{lstlisting}
+def all.lookup {A : Type}{P : A → Type}{n}{v : vec A n}(xs : vec.all P v)(i : fin n)
+  : P (vec.lookup v i) :=
+  match i, xs with
+  | fin.zero, vec.all.cons x _ => x
+  | fin.succ i1, vec.all.cons _ v1 =>
+    all.lookup v1 i1
+\end{lstlisting}
+The implementation works by structural recursion, matching on both the index
+and the proof: when \lstinline|i| is \lstinline|fin.zero|, it extracts the
+proof for the head element; when \lstinline|i| is \lstinline|fin.succ i1|, it
+recursively looks up the proof in the tail.
+
+\subsection{Indexes}\label{sec:index-lean}
+
+We start by representing the syntax of indexes as the following
+inductive type:
+\begin{lstlisting}
+inductive Index : Type where
+| nat : ℕ → Index
+| infty : Index
+| tonat : Index
+| length : Index
+| add : Index → Index → Index
+| mult : Index → Index → Index
+\end{lstlisting}
+Type \lstinline|Index| has a constructor for each index syntatic form: constants
+are represented by the constructor \lstinline|nat|, the infinite index is denoted
+by \lstinline|infty|, stack query indexes \lstinline|tonat| and \lstinline|length|
+denote the top stack element corresponding natural number value or its length, respectively.
+Addition and multiplication of indexes are built using constructors \lstinline|add| and
+\lstinline|mult|. The result of evaluating indexes are represented by values,
+which are either numeric
+constant or the special value \lstinline|infty|, which are denoted by the \lstinline|Value|
+type.
+\begin{lstlisting}
+inductive Value : Type where
+| nat : ℕ → Value
+| infty : Value
+\end{lstlisting}
+In order to reduce indexes, we use two distinct functions: the first, \lstinline|norm_static|
+is the implementation of $\mathbf{norm}^*$ normalization procedure used by type system.
+This definition proceeds by pattern matching over the index structure and provides no
+surprises, except that stack query indexes will always return 0, since we do not have access
+to the parsing stack during type checking and the need to propagate the \lstinline|infty|
+value through recursive calls of the normalization of arithmetic operation arguments.
+\begin{lstlisting}
+def norm_static (i : Index) : Value :=
+  match i with
+  | .nat n => .nat n
+  | .infty => .infty
+  | .tonat => .nat 0
+  | .length => .nat 0
+  | .add i1 i2 =>
+    match norm_static i1, norm_static i2 with
+    | .nat n1, .nat n2 => .nat (n1 + n2)
+    | .infty , _ => .infty
+    | _, .infty => .infty
+  | .mult i1 i2 =>
+    match norm_static i1, norm_static i2 with
+    | .nat n1, .nat n2 => .nat (n1 * n2)
+    | .infty , _ => .infty
+    | _, .infty => .infty
+\end{lstlisting}
+The normalization of indexes used by the semantics is implemented by function \lstinline|norm|,
+which takes the current parser stack as and additional argument, together with the
+index to be evaluated and return an optional value, since evaluating stack query indexes can
+cause runtime errors. Again, most of the \lstinline|norm| is similar to \lstinline|norm_static|.
+Differences arise due to dealing with stack querying operations and the additional propagation
+of runtime errors (encoded by the \lstinline|Option.none| value) through recursive calls.
+\begin{lstlisting}
+def norm (i : Index)(s : stack) : Option Value :=
+  match i, s with
+  | .nat n, _ => .some (.nat n)
+  | .infty, _ => .some .infty
+  | .tonat, [] => .none
+  | .tonat, (s :: _) =>
+    match (String.ofList s).toNat? with
+    | .none => .none
+    | .some i => .some (.nat i)
+  | .length, [] => .none
+  | .length, (s :: _) => .some (.nat s.length)
+  | .add i1 i2, stk =>
+    match norm i1 stk, norm i2 stk with
+    | .some (.nat n1), .some (.nat n2) =>
+        .some (.nat (n1 + n2))
+    | .some .infty, _ => .some .infty
+    | _ , .some .infty => .some .infty
+    | _, _ => .none
+  | .mult i1 i2, stk =>
+    match norm i1 stk, norm i2 stk with
+    | .some (.nat n1), .some (.nat n2) =>
+        .some (.nat (n1 * n2))
+    | .some .infty, _ => .some .infty
+    | _ , .some .infty => .some .infty
+    | _, _ => .none
+\end{lstlisting}
+The definitions of \lstinline|norm| and \lstinline|norm_static| are related by some
+lemmas, which are proved by a straightforward induction over the input index. We use
+such lemmas to get a contradiction in the interpreter definition, to satisfy Lean's
+totality checker which is not able to determine that such situations are impossible.
+
+\subsection{Intrisincally-typed syntax for grammars}~\label{sec:pest-syntax}
+
+In this section we describe our design decisions to encode our proposed type system
+as an intrisincally-typed syntax definition using Lean 4.
+We start by defining the representation of types, which mimics the exact definition
+of the type system: a record formed by a boolean and the headset. Since we are representing
+variables as DeBruijn indexes, which are values of the \lstinline|fin| type, the headset is
+just a list of \lstinline|fin n| values, where \lstinline|n| is the number of variables in
+the grammar. Typing contexts are just vectors of types.
+\begin{lstlisting}
+abbrev headset (n : ℕ) := List (fin n)
+
+structure type (n : ℕ) : Type where
+  nullable : Bool
+  headset : headset n
+
+abbrev ctx (n : ℕ) := vec (type n) n
+\end{lstlisting}
+Operations over types are implemented as functions to combine types. As an example,
+the sum of two types is realized by \lstinline|type.sum| function. Operations for
+product, negation, star and repetition operators follow a similar structure and
+are ommited for brevity.
+\begin{lstlisting}
+def type.sum {n}(t1 t2 : type n) : type n :=
+  type.mk (t1.nullable || t2.nullable)
+          (t1.headset ++ t2.headset)
+\end{lstlisting}
+We use the typing rules from Figures~\ref{fig:typesystem},~\ref{fig:typing-repetition}
+and \ref{fig:typing-stack} as the start point from our implementation. First, we
+define a predicate to establish when a variable reference is valid:
+\begin{lstlisting}
+def validvar {n}(sig : ctx n)(v : fin n) : Prop :=
+  let t : type n := vec.lookup sig v
+  match t with
+  | type.mk _ h => v ∉ h
+\end{lstlisting}
+This definition encodes the premise present in the typing rule for variables in
+Figure~\ref{fig:typesystem}, which requires that $A \not\in \tau.head$, when
+typing a variable $A$ with type $\tau$. The predicate \lstinline|validvar sig v|
+holds when the variable \lstinline|v| does not appear in its own head-set,
+thereby preventing left recursion in the grammar.
+
+Now, we have the necessary ingredients to develop the syntax of parsing expressions
+that only allow the construction of well-typed grammars. The Lean 4 representation of
+this type is as follows:
+\begin{lstlisting}
+inductive pexp {n}(sig : ctx n) : type n -> Type where
+| epsilon : pexp sig (type.mk true [])
+| chr : Char → pexp sig (type.mk false [])
+| var : (v : fin n) → validvar sig v → pexp sig (vec.lookup sig v)
+| cat : ∀ {t1 t2}, pexp sig t1 → pexp sig t2 → pexp sig (type.prod t1 t2)
+| choice : ∀ {t1 t2}, pexp sig t1 → pexp sig t2 → pexp sig (type.sum t1 t2)
+| not : ∀ {b s}, pexp sig (type.mk b s) → pexp sig (type.mk true s)
+| star : ∀ {s}, pexp sig (type.mk false s) → pexp sig (type.mk true s)
+| push : ∀ {t}, pexp sig t → pexp sig t
+| pop : pexp sig (type.mk true [])
+| peek : pexp sig (type.mk true [])
+| drop : pexp sig (type.mk true [])
+| peekall : pexp sig (type.mk true [])
+| dropall : pexp sig (type.mk true [])
+| rep : ∀ {n t} i, norm_static i = Value.nat n → pexp sig t → pexp sig (type.tyrep n t)
+| bound : ∀ {n v} t i1 i2, norm_static i1 = Value.nat n → norm_static i2 = v →
+                           pexp sig t → ¬ (v = .infty ∧ t.nullable = true) →
+                           pexp sig (type.mk (Nat.beq n 0 && t.nullable) t.headset)
+\end{lstlisting}
+Type \lstinline|pexp sig t| denotes a parsing expression with type \lstinline|t|
+in a typing context \lstinline|sig|. We start describing the constructors encoding
+the typing rules for standard PEG operators. The constructors \lstinline|epsilon|
+and \lstinline|chr| shows that expressions $\epsilon$ and $a \in \Sigma$
+have types $\langle true, \emptyset \rangle$ and $\langle false, \emptyset\rangle$,
+respectively. The constructor for variables uses the predicate \lstinline|validvar| to
+restrict the variable to be not contained on its headset. Concatenation and choice
+simply use the operations \lstinline|type.prod| and \lstinline|type.sum| to combine
+the types of its subexpressions. Constructor \lstinline|not| denotes the PEG not
+predicate and it simply forces the type of its subexpression to be nullable, while
+keeping the same headset. The constructor for the star operator forces that its
+subexpression should not be nullable by requiring it to have the type
+\lstinline|pexp sig (type.mk false s)|, for some headset s.
+
+Next, we turn our attention to stack operators. Constructor \lstinline|push| specifies
+that expression \lstinline|push e| has the same type as \lstinline|e|. All other
+stack operators are considered nullable and having an empty head-set. The constructor
+for exact repetition operator, \lstinline|rep|, demands that its sub-expression is
+well-typed and that its index normalizes into a numeric constant. Finally, constructor
+\lstinline|bound| express the restrictions over bounded repetition expressions:
+1) the sub-expression should be well-typed; 2) the lower bound should always reduce
+to a numeric constant and 3) Let \lstinline|v| be the normalized index for the upper-bound.
+Then if the sub-expression is nullable, \lstinline|v| should be different from
+\lstinline|infty|.
+
+Following~\cite{Ribeiro19}, since we represented variables as De Bruijn indexes, we need to
+relate an expression with its type on typing context. Datatype
+\lstinline|rules| stores the set of rules (parsing expressions) of a grammar in
+a length-indexed list (vector). We use type \lstinline|vec.all| to enforce the relation
+between an expression and its type on context.
+\begin{lstlisting}
+structure rules {n}(sig : ctx n) : Type where
+  exprs : vec.all (λ t => pexp sig t) sig
+\end{lstlisting}
+Finally, we represent a grammar by a record containing a typing context for
+its non-terminals types, its rules and the grammar start expression together with
+its type.
+\begin{lstlisting}
+structure grammar : Type where
+  n : ℕ
+  sig : ctx n
+  pegs : rules sig
+  starttype : Ty
+  start : pexp sig starttype
+\end{lstlisting}
+
+\subsection{Definitional interpreter for grammars and its soundness theorem}~\label{sec:pest-interpreter}
+
+In this section we detail the implementation of the interpreter for the
+intrinsically-typed syntax for grammars and how it can be used to produce a proof of the
+soundness theorem for our type system.
+We follow the same strategy as~\cite{Ribeiro19, Amin17} and use a ``fuel'' parameter
+to limit the number of recursive calls made by the interpreter. We also need
+a special type to denote valid parsing results:
+\begin{lstlisting}
+inductive Result : Type where
+| Ok : word → word → stack → Result
+| ParserError : Result
+\end{lstlisting}
+Type \lstinline|Result| encodes possible PEG execution results: it will either fail
+on the current input (constructor \lstinline|ParserError|) or it will return a
+pair formed by the consumed prefix, the remaining input and the current stack
+state, as represented by the constructor \lstinline|Ok|.
+
+The main intepreter function, \lstinline|parse|, has the following signature:
+\begin{lstlisting}
+def parse {n}{sig : ctx n}{t : type n}(fuel : ℕ)(rs : rules sig)
+          (e : pexp sig t)
+          (s : word)(st : stack) : Option Result :=
+    ... -- definition of the interpreter cases
+\end{lstlisting}
+and it is defined by recursion on the structure of the expression \lstinline|e|
+and the current fuel value. Whenever the interpreter runs out of fuel, we return
+\lstinline|Option.none| to denote such out of gas error.
+\begin{lstlisting}
+match fuel with
+| 0 => .none
+| fuel1 + 1 => -- matching over e..
+\end{lstlisting}
+Next, we consider the semantics for $\epsilon$. It will always succeed by
+returning an empty parsed prefix, the current input and the current
+stack state as the parsing result.
+\begin{lstlisting}
+match e with
+| pexp.epsilon => pure (.Ok [] s st)
+\end{lstlisting}
+The parsing of a single character expression needs to check if
+it is the first input symbol. Otherwise, we have a failure.
+We start by doing a case analysis on the input, returning a
+failure when it is empty. For non-empty strings, we check if
+the first symbol is equal to the current parsing expression
+using function \lstinline|decEq|, which is the decidable
+equality test defined in Lean standard library. Whenever the
+two characters aren't equal, we return a parse error or a
+triple containing the parsed symbol, the remaining input and
+the current stack.
+\begin{lstlisting}
+| pexp.chr c =>
+  match s with
+  | [] => pure .ParserError
+  | (c1 :: s1) =>
+    match decEq c c1 with
+    | .isTrue rfl => pure (.Ok [c] s1 st)
+    | .isFalse _ => pure .ParserError
+\end{lstlisting}
+For the variable case, we simply execute its right-hand side by
+looking up its defining expression in the grammar rules and calling
+the intepreter recursively over it.
+\begin{lstlisting}
+| pexp.var v _ =>
+    match all.lookup rs.exprs v with
+    | e1 => parse fuel1 rs e1 s st
+\end{lstlisting}
+Evaluation of the concatenation of two expressions proceeds as follows:
+we first evaluate \lstinline|e1| over the input \lstinline|s|, if it results
+in a failure, then the whole concatenation fails. If it succeeds, then it
+should produce a parsed prefix, a remaining suffix and a result stack. Then,
+we execute \lstinline|e2| over the suffix. Again, if it fails, concatenation
+fails. When \lstinline|e2| succeeds, the result is the concatenation of
+the parsed prefix of its sub-expressions, the remaining input is what
+\lstinline|e2| leaves from the input and the result stack will be the value
+produced by the execution of \lstinline|e2|. This semantics is expressed by
+the following Lean equations.
+\begin{lstlisting}
+| pexp.cat e1 e2 =>
+    match parse fuel1 rs e1 s st with
+    | .some (.Ok pre1 suf1 st1) =>
+      match parse fuel1 rs e2 suf1 st1 with
+      | .some (.Ok pre2 suf2 st2) =>
+        pure (.Ok (pre1 ++ pre2) suf2 st2)
+      | .some .ParserError => pure .ParserError
+      | .none => .none
+    | .some .ParserError => pure .ParserError
+    | .none => .none
+\end{lstlisting}
+Next, we consider the semantics for the choice operator: it parses the input
+using the first subexpression, if it succeeds then the whole choice expression
+will also succeed. If we reach a not enough gas error
+(resulting a \lstinline|none| constructor), we simply propagate the error.
+When \lstinline|e1| execution results in a parser error, we try to run
+\lstinline|e2| over the original input \lstinline|s|.
+\begin{lstlisting}
+| pexp.choice e1 e2 =>
+    match parse fuel1 rs e1 s st with
+    | .some (.Ok pre1 suf1 st1) => .some (.Ok pre1 suf1 st1)
+    | .some .ParserError => parse fuel1 rs e2 s st
+    | .none => .none
+\end{lstlisting}
+The semantics of the not operator is defined as follows: it runs
+its subexpression against the input. A successful result from the
+subexpression causes the not operator to produce a parser error.
+A failure from the subexpression causes the not operator to succeed,
+without consuming input.
+\begin{lstlisting}
+| pexp.not e1 =>
+  match parse fuel1 rs e1 s st with
+  | .some (.Ok _ _ _) => pure .ParserError
+  | .some .ParserError => pure (.Ok [] s st)
+  | .none => .none
+\end{lstlisting}
+The semantics of the Kleene operator work as follows: we try to parse
+the input using the Kleene sub-expression. When it fails, the whole
+Kleene succeeds without consuming input. If the sub-expression succeeds,
+the interpreter runs the Kleene expression again over the remaining suffix.
+The only situation which results in failure is when we ran out of fuel. In this
+situation, we just propagate the value \lstinline|.none|.
+\begin{lstlisting}
+
+| pexp.star e1 =>
+  match parse fuel1 rs e1 s st with
+  | .some .ParserError => pure (.Ok [] s st)
+  | .some (.Ok pref1 suf1 st1 ) =>
+    match parse fuel1 rs (pexp.star e1) suf1 st1 with
+    | .some (.Ok pref2 suf2 st2) =>
+      pure (.Ok (pref1 ++ pref2) suf2 st2)
+    | .some .ParserError =>
+      pure (.Ok pref1 suf1 st1)
+    | .none => .none
+  | .none => .none
+\end{lstlisting}
+Now, let's focus on the stack operators. We start with \lstinline|push e1|, which
+parse the input using the sub-expression \lstinline|e1|. The resulting parsed prefix
+is then pushed in the result stack.
+\begin{lstlisting}
+| pexp.push e1 =>
+    match parse fuel1 rs e1 s st with
+    | .some (.Ok pref1 suf1 st1) =>
+      pure (.Ok pref1 suf1 (pref1 :: st1))
+    | .some .ParserError => pure .ParserError
+    | .none => .none
+\end{lstlisting}
+Next, we consider the pop operator, which tries to parse the stack top in the current
+input. A parser error is returned whenever the stack is empty or the top string does
+not match with the prefix of the current input.
+\begin{lstlisting}
+| pexp.pop =>
+  match st with
+  | [] => pure .ParserError
+  | (w :: st1) =>
+    let n  := List.length w
+    let w1 := List.take n s
+    if w = w1 then pure (.Ok w  (List.drop n s) st1)
+    else pure .ParserError
+\end{lstlisting}
+Operators \lstinline|peek|, \lstinline|drop|, \lstinline|peekall| and \lstinline|dropall|
+have a trivial implementation and are omitted for brevity. Finally, let's focus on
+the new repetition operators. First, we show the equations that define
+the semantics of the exact repetition operator.
+\begin{lstlisting}
+| pexp.rep i eq e =>
+  match Hv : norm i st with
+  | .some (Value.nat 0) => pure (.Ok [] s st)
+  | .some (Value.nat (m + 1)) =>
+    match parse fuel1 rs e s st with
+    | .some (.Ok pref1 suf1 st1) =>
+      let i1 := Index.nat m
+      let eq1 : norm_static i1 = Value.nat m := by rfl
+      match parse fuel1 rs (pexp.rep i1 eq1 e) suf1 st1 with
+      | .some (.Ok pref2 suf2 st2) =>
+        pure (.Ok (pref1 ++ pref2) suf2 st2)
+      | .some .ParserError => pure .ParserError
+      | .none => .none
+    | .some .ParserError =>
+      pure .ParserError
+    | .none => .none
+\end{lstlisting}
+The first step is to obtain the normal form \lstinline|v| of the index of the
+exact repetition. When the normal form is a numeric value, then we simply repeat
+the parsing of the expression \lstinline|e| over the input. Parser errors and
+out of gas are simply propagated in the call stack of the semantics. When the
+normal form \lstinline|v| is \lstinline|infty|, we have a contradiction, since
+well-typed exact repetition expressions cannot have indexes which normalize to
+\lstinline|infty|. Our semantics deal with this contradictory case using a
+simple tactic script to discharge it. The reader interested in the details of
+this script can check our formalization source code.
+The final operator considered in our semantics is the bounded repetition. Its
+implementation starts by normalizing their two indexes producing values
+\lstinline|v1| and \lstinline|v2|. Then, we consider the following possibilities:
+1) If \lstinline|v1 < v2|, we simply execute $e[v1, v2 - 1]$ over the current input;
+2) If \lstinline|v1 = v2|, we then parse the input using $e^{v1}$;
+3) If \lstinline|v2 = infty|, we parse the input using $e^{v1}e^\star$.
+
+\begin{lstlisting}
+| pexp.bound t i1 i2 eq1 eq2 e neq =>
+  match Hv1 : norm i1 st, Hv2 : norm i2 st with
+  | .some (Value.nat n1), .some (Value.nat n2) =>
+    match Ord.compare n1 n2 with
+    | Ordering.lt =>
+      let i3 := Index.nat n2
+      match parse fuel1 rs (pexp.rep i3 (by rfl) e) s st with
+      | .none => .none
+      | .some .ParserError =>
+        let i4 := Index.nat n1
+        let i5 := Index.nat (n2 - 1)
+        parse fuel1 rs (pexp.bound t i4 i5 (by rfl) (by rfl) e
+                                           (by intros H3 ; simp [norm_static] at *)) s st
+      | res => res
+    | Ordering.eq =>
+      let i3 := Index.nat n1
+      parse fuel1 rs (pexp.rep i3 (by rfl) e) s st
+    | Ordering.gt => .some .ParserError
+  | .some (Value.nat n1), .some .infty =>
+    if Ht : t.nullable then by
+    -- contradictory case.
+    -- tactic script omitted for brevity
+    else
+      let i3 := Index.nat n1
+      let e1 : pexp sig (type.mk false t.headset) := by
+        have Hn : t.nullable = false := by aesop
+        have Heq : t = type.mk t.nullable t.headset := by
+          rcases t
+          aesop
+        rw [Heq] at e
+        rw [Hn] at e
+        exact e
+      parse fuel1 rs (.cat (.rep i3 (by rfl) e) (.star e1)) s st
+\end{lstlisting}
+The final piece of our semantics is the function that executes a PEG
+over an input. Function \lstinline|run| takes a fuel argument, a grammar
+and an input string and calls function \lstinline|parse| passing the grammar
+rules, its start expression, the input string and an empty stack.
+\begin{lstlisting}
+def run (fuel : ℕ)(g : grammar)(s : word) : Option Result :=
+  parse fuel g.pegs g.start s []
+\end{lstlisting}
+
+From the implementation of the interpeter, we can see that the only situation
+that it returns \lstinline|.none| is when it runs out of gas. There are two reasons
+for exausting the fuel counter: either its initial value was less than the minimum
+necessary for the complete parsing of the input or the grammar looped. Since our
+type system rejects any grammar with left-recursive rules and expressions which
+contain a nullable sub-expression of a Kleene star, grammars that can be executed
+using the intepreter cannot loop over the input. So, the only reason for
+a \lstinline|.none| result is that the initial fuel value was not enough for
+the current grammar and input.
+
+In what follows, we state the soundness theorem. Its proof proceeds by
+by induction over the fuel counter and case analysis on the
+intrinsically-typed representation of expressions. We omit the tactic
+script for brevity. The interested reader could check its details on-line~\cite{pegrepository}.
+\begin{lstlisting}
+theorem soundness
+  : ∀ {fuel}{n}{sig : ctx n}{t}(rs : rules sig)(e : pexp sig t) s st r,
+  parse fuel rs e s st = .some r →
+  r = Result.ParserError ∨ ∃ pre, ∃ suf, ∃ st, r = .Ok pre suf st
+\end{lstlisting}
+
+\section{Examples}~\label{sec:examples}
+
+We implemented a Racket library, called \emph{typed-peg},
+which implements the type inference and the semantics of grammars with the proposed new
+operators. In this section, we present a complete example grammar and discuss how
+our approach avoid the looping behavior reported by Pest users~\cite{PESTBUG}.
+
+\paragraph{A grammar for the Heartbeat packages} One of the most famous binary data format
+bug is the so-called ``heartbleed''. The ASN.1 binary interface uses a ``heartbeat''
+package to check if the other remote party is still alive. A well-formed heartbeat package
+is formed by the following components:
+\begin{itemize}
+  \item A type field, which indicates what kind of ``heartbeat'' is being used,
+  \item A field for the length $l$ --- a two byte value,
+  \item A challenge $C$ of length $|C| = l$, and
+  \item An arbitrary number of padding bytes.
+\end{itemize}
+
+\begin{verbatim}
+#lang typed-peg
+bit <-- '0' / '1'
+byte <-- bit^8
+type <-- byte
+length <-- push(byte^2)
+challenge <-- byte^top.tonat
+padding <-- byte*
+start: type ~ length ~ challenge ~ padding
+\end{verbatim}
+The previous grammar is a simple encoding of the heartbeat package format.
+A key issue regarding implementing parsers for this format is to ensure that
+challenge has the size specified by the length field. Using the stack operator
+\textbf{push} we insert the parsed length into the execution stack and retrieve
+its numeric value using the index expression \textbf{top.tonat}, which parses
+the challenge using the exact repetition operator.
+
+\paragraph{A grammar for the PNG format}
+
+A popular image file format is the Portable Network Graphics (PNG), which
+is represented by the following pieces of data: 1)
+A format signature (8 bytes), which always corresponds to the
+following integer values: 137, 80, 78, 71, 13, 10, 26, 10;
+2) A 4 bytes natural number $n$, which represents the data length;
+3) 4 bytes chunk type value;
+4) The image data, a sequence of $n$ bytes and
+5) a 4 bytes CRC checksum.
+A possible grammar to specify the PNG format is:
+\begin{verbatim}
+#lang typed-peg
+bit <-- '0' / '1'
+byte <-- bit^8
+fist-four <-- '137' ~ '80' ~ '78' ~ '71'
+snd-four <-- '13' ~ '10' ~ '26' ~ '10'
+signature <-- first-four ~ snd-four
+length <-- push(byte^4)
+type <-- byte^4
+data <-- byte^top.tonat
+crc <-- byte^4
+start: signature ~ length ~ type ~ data ~ crc
+\end{verbatim}
+Notice that the use of an exact repetition operator combined with
+index \textbf{top.tonat} allows us to guarantee that the data block
+has the correct size of the format length field.
+
+\paragraph{Rejecting reported looping examples} Now, let's turn our
+attention to some expressions which Pest users~\cite{PESTBUG} reported as
+non terminating.
+
+\begin{verbatim}
+forever1 <-- (push('') ~ pop)*
+forever2 <-- popall ~ (popall)*
+forever3 <-- forever3
+\end{verbatim}
+In the first two examples, we have nullable expressions under a star
+operator. In the first rule, we have a repetition of \textbf{push} operator, which
+has an empty string expression as its argument, followed by \textbf{pop}.
+A \textbf{push} is nullable only if its argument is nullable. Since it
+has an empty string as argument, the expression \verb|push('')|
+accepts the empty string. Next, we have a pop operator which is nullable,
+by the definition. In this way, the type system rejects \verb|forever1|,
+since it has a nullable expression under a star. The second example is also
+ill-typed since it has a \textbf{popall}, a nullable operator, as
+argument to a PEG repetition.
+The third example shows a simple left recursive rule
+which is also rejected by type inference algorithm.
+
+\paragraph{A grammar for an identation sensitive language}
+
+Parsing identation sensitive languages poses a challenge to language developers.
+The next grammar is an example of how stack operators can be used to define
+a language which uses different levels of identation. The idea is to use the
+stack to control the identation level.
+\begin{verbatim}
+#lang typed-peg
+new_line <-- '\n'
+char <-- 'a' / ... / 'z' / '0' / ... / '9'
+ident_level <-- ' '+ / '\t'+
+block_name <-- char+
+block <-- block_name ~ new_line ~ new_block*
+new_block <-- peekall ~
+              push (ident_level) ~
+              block ~
+              (peekall ~ block)* ~
+              drop
+start: new_line* ~ block* ~ new_line*
+\end{verbatim}
+At each block, we start by matching the current block identation
+using the operator \textbf{peekall}. Next, we push the possible
+next identation level and process a possibly empty set of blocks.
+We end a block by removing its identation from the parser stack
+using \textbf{drop}.
+
+\paragraph{Discussion}
+Our work uses the framework of operational semantics and type
+theory to provide a solid foundation to Pest stack and repetition
+operators. The main issue pointed by Pest users~\cite{PESTBUG} is failure of
+detecting non termination of grammars. The proposed type inference
+algorithm can avoid this problem by ruling out any grammar which
+has direct or indirect left-recursive rules and nullable expressions
+as a parameter to the Kleene star operator.
+
+During our formalization, we notice that the inclusion
+of indexes that allow the inspection of the topmost stack item
+would increase the tool expressivity, since they allow concise
+specifications for some context-sensitive formats.
+However, the proposed
+typing algorithm does not avoid some kinds of run-time errors, notably
+errors caused by \textbf{top.tonat} and \textbf{top.length}, when
+the stack is empty or if its top element is not a
+string formed only by digits, in the case of \textbf{top.tonat}.
+Current version of the Pest tool do not provide support to \textbf{top.nat}
+and \textbf{top.length} indexes.
+
+A limitation of our current prototype is that it does not handle different
+input encodings. The semantics of index expression \textbf{top.tonat} is
+dependent of current input encoding to convert the topmost stack value to
+a natural number, if possible. The proper handling of multiple encodings
+is left for future work.
+
+While our approach is able to detect non terminating grammars it does not avoid
+some runtime errors, notably caused by \textbf{top.tonat} and \textbf{top.length},
+since if the parser stack is empty (for both operations) or if its top element is
+not a valid number (for \textbf{top.tonat}).
+
+\section{Related work}~\label{sec:related}
+
+The works of Ribeiro et al. ~\cite{Ribeiro19} and Cardoso et. al.~\cite{Cardoso23}
+proposed a type system and a type inference algorithm for PEGs that is sound with
+respect to Ford's well-formedness predicate. Authors argue that the use
+of a type system provide a more predictable and compositional behavior.
+Another work that uses types to ensure parsing termination was proposed by
+Krishnaswami et. al.~\cite{Krishnaswami19}. The authors define a type system
+for $\mu$-regular expressions, an algebraic presentation of context-free
+languages, and proved that their type system only accepts LL(1) grammars.
+Our work extend both the type system for PEGs and its inference algorithm to
+Pest operators while ensuring that no well-typed grammar
+will loop over inputs.
+
+The development of formalisms and tools for correct parsing of complex data
+formats is subject of some recent works.  Zhang et. al.~\cite{Zhang23} proposed
+interval parsing grammars (IPG) as formalism for expressing some context-sensitive
+formats present in binary data, like video and image formats. An IPG attaches to
+every non terminal/terminal an interval, which specifies the range of input consumed.
+By connecting intervals and attributes, the context-sensitive patterns in file formats
+can be well handled. Unlike \emph{typed-peg}, IPGs allow the use semantic actions to
+perform arbitrary computations over attributes. While such approach provide extra
+power, in our view, it clutters the grammar since the parser specification is not formed only by
+grammar rules but also program pieces to handle parsed data.
+
+Another work that proposes a formalism to deal with data formats was developed by Lucks
+et. al.~\cite{Lucks17}. Authors devised a new class of languages, named
+``calc-regular languages'', which enjoy the property of prefix-freeness that is
+present in several binary data formats. In order to provide concise specification
+of calc-regular languages, author devised \emph{calc-regular expressions}, an
+extension of regular expressions. The parsing of such languages can be made by
+finite state machines with accumulators, which are proved equivalent to calc-regular
+expressions. Zephyr et. al~\cite{Zephyr21} proposed an extension to PEGs, based on
+calc-regular expressions, named calc-PEGs which provide a specific length
+operator to PEGs. Authors discuss a $O(n^2)$ algorithm to parse calc-PEGs and
+present a tool, called pegmatite, that produce parsers from calc-PEGs specifications.
+Unlike our work, the authors do offer no guarantee of termination, neither provide
+a detailed specification of calc-PEGs.
+
+The use of intrisincally-typed interpreters in semantics are the subject of
+some recent research works~\cite{Feitosa19, Feitosa22, Thiemann23, Rouvoet20,
+Rest22}.
+Feitosa and Ribeiro~\cite{Feitosa22} present a mechanically verified
+implementation of the list-machine benchmark using the dependently typed language
+Agda. Authors provide provably correct algorithms for subtyping and least common
+supertype calculation, as well as a type checker that produces intrinsically-typed
+program representations. They show that this approach reduces code size significantly
+— using only 14\% of the lines of code compared to a Twelf solution and 47\% compared
+to Coq — while still covering all 14 benchmark tasks. The paper also extends the
+formalization to support indirect jumps (version 2.0 of the benchmark), demonstrating
+how the intrinsic approach handles more complex control flow features like continuation
+types and mutually inductive relations. The formalization of Featherweight Java (FJ)
+using intrisincally-typed syntax was the subject of~\cite{Feitosa19}.
+Authors used a novel encoding that integrates FJ's nominal type system, class tables,
+and inheritance into an intrinsically-typed syntax, where only well-typed expressions
+are representable. By using de Bruijn indices for names and splitting class definitions
+into signatures and implementations, the authors handle complex binding structures and
+mutual dependencies elegantly. They further implement a fuel-based definitional
+interpreter that leverages the type information to guarantee progress and preservation
+theorems without separate proofs.
+Thiemann's work~\cite{Thiemann23} uses a definitional interpreter to define a callback-based approach for
+implementing binary session types in dependently typed functional languages like Agda,
+eliminating the need for linear types in the host language. By encapsulating all
+communication logic within an interpreter that forms the trusted computing base,
+the approach guarantees protocol fidelity and linearity by construction. The work extends
+to advanced session type features including branching, recursion, multichannel sessions,
+higher-order sessions, and context-free sessions, while also introducing novel constructs
+such as dynamic selection and an UNROLL command for recursive client protocols.
+Another work which uses a definitional interpreter-based semantics for a linear and session-typed
+language is~\cite{Rouvoet20}. The authors use a syntax encoding which takes inspiration from separation
+logic, the authors develop proof-relevant separation algebras and composable
+monadic abstractions (including linear Reader and State monads, and a free
+monad for concurrency) that encapsulate the complexities of resource
+separation and linearity. These abstractions enable the concise specification of
+interpreters for increasingly complex languages: a linear lambda calculus,
+one with strong references, and finally a session-typed language with
+concurrency and asynchronous communication. The work demonstrates that
+with the right abstractions, intrinsically-typed interpreters for sophisticated linear
+languages can retain the clarity and simplicity of those for simple languages, while
+providing executable and type-safe semantics by construction.
+
+\section{Conclusion}~\label{sec:conclusion}
+
+In this work we proposed a formalization of an extended version of Pest style PEG
+grammars. We provide a formalization of stack manipulation and repetition operators
+for Pest grammars and presented a mechanized semantics and a soundness result which
+implies termination of parsing for all typed grammars.
+Besides a formal definition of the operator semantics, we
+extended a typing inference algorithm for PEGs~\cite{Cardoso23} which guarantee
+termination of well-typed grammars to handle Pest operators.
+As future work, we
+intend to continue develop of the \emph{typed-peg} Racket library and to
+integrate the ideas present in this work in future versions of the Pest tool.
+
+\section*{ACKNOWLEDGMENTS}
+This work is supported by the FAPEMIG - Fundação de Amparo à Pesquisa de Minas Gerais -
+under grant number APQ-01683-21.
+
+
+%% bibitems, please use
+%%
+\bibliographystyle{elsarticle-num}
+\bibliography{references}
+
+%% else use the following coding to input the bibitems directly in the
+%% TeX file.
+
+%% Refer following link for more details about bibliography and citations.
+%% https://en.wikibooks.org/wiki/LaTeX/Bibliography_Management
+
+\end{document}
+
+\endinput
+%%
+%% End of file `elsarticle-template-num.tex'.

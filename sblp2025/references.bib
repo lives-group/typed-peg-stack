@@ -1,0 +1,811 @@
+@article{Milner78,
+  author    = {Robin Milner},
+  title     = {A Theory of Type Polymorphism in Programming},
+  journal   = {Journal of Computer and System Sciences},
+  volume    = {17},
+  number    = {3},
+  pages     = {348--375},
+  year      = {1978},
+  publisher = {Academic Press, Inc.},
+  doi       = {10.1016/0022-0000(78)90014-4},
+}
+@Book{plfa22.08,
+    author = {Philip Wadler and Wen Kokke and Jeremy G. Siek},
+    title  = {Programming Language Foundations in {A}gda},
+    year   = {2022},
+    month  = aug,
+    url    = {https://plfa.inf.ed.ac.uk/20.08/},
+}
+@Misc{pegrepository,
+  Key =      {SECRET},
+  author = {Anonymous authors},
+  title =    {{SECRET Library - online repository.}},
+  howpublished = {{https://anonymous.4open.science/r/pest-sblp2025}}
+}
+@Misc{PEST,
+  Key =      {Pest --- PEG-based parser generator for Rust.},
+  author = {Pest Development Team},
+  title =    {{Pest - online repository.}},
+  howpublished = {{https://github.com/pest-parser/pest}}
+}
+@Misc{PESTBUG,
+  Key =      {On the hunt of grammars making the parser run indefinitely.},
+  author = {Tartasprint},
+  title =    {{On the hunt of grammars making the parser run indefinitely.}}},
+  howpublished = {{https://github.com/pest-parser/pest/discussions/851}}
+}
+@book{REDEX,
+author = {Felleisen, Matthias and Findler, Robert Bruce and Flatt, Matthew},
+title = {Semantics Engineering with PLT Redex},
+year = {2009},
+isbn = {0262062755},
+publisher = {The MIT Press},
+edition = {1st},
+abstract = {This text is the first comprehensive presentation of reduction semantics in one volume; it also introduces the first reliable and easy-to-use tool set for such forms of semantics. Software engineers have long known that automatic tool support is critical for rapid prototyping and modeling, and this book is addressed to the working semantics engineer (graduate student or professional language designer). The book comes with a prototyping tool suite to develop, explore, test, debug, and publish semantic models of programming languages. With PLT Redex, semanticists can formulate models as grammars and reduction models on their computers with the ease of paper and pencil. The text first presents a framework for the formulation of language models, focusing on equational calculi and abstract machines, then introduces PLT Redex, a suite of software tools for expressing these models as PLT Redex models. Finally, experts describe a range of models formulated in Redex. PLT Redex comes with the PLT Scheme implementation, available free at http://www.plt-scheme.org/. Readers can download the software and experiment with Redex as they work their way through the book. For more information (including the preface, a sample syllabus, and a quick introduction to Redex), see the Redex website at http://redex.plt-scheme.org/. Matthias Felleisen, Robert Bruce Findler, and Matthew Flatt are the authors (with Shiram Krishnamurthi) of How to Design Programs: An Introduction to Programming and Computing, also published by the MIT Press.}
+}
+@inproceedings{Cardoso23,
+  author       = {Elton M. Cardoso and
+                  Regina Sarah Monferrari Amorim De Paula and
+                  Daniel Freitas Pereira and
+                  Leonardo Vieira dos Santos Reis and
+                  Rodrigo Geraldo Ribeiro},
+  editor       = {Jiman Hong and
+                  Maart Lanperne and
+                  Juw Won Park and
+                  Tom{\'{a}}s Cern{\'{y}} and
+                  Hossain Shahriar},
+  title        = {Type-based Termination Analysis for Parsing Expression Grammars},
+  booktitle    = {Proceedings of the 38th {ACM/SIGAPP} Symposium on Applied Computing,
+                  {SAC} 2023, Tallinn, Estonia, March 27-31, 2023},
+  pages        = {1372--1379},
+  publisher    = {{ACM}},
+  year         = {2023},
+  url          = {https://doi.org/10.1145/3555776.3577620},
+  doi          = {10.1145/3555776.3577620},
+  timestamp    = {Fri, 21 Jul 2023 22:25:36 +0200},
+  biburl       = {https://dblp.org/rec/conf/sac/CardosoPPRR23.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@book{Grune90,
+  added-at = {2006-01-16T06:48:45.000+0100},
+  address = {Chichester, England},
+  author = {Grune, Dick and Jacobs, Ceriel J.H.},
+  biburl = {https://www.bibsonomy.org/bibtex/23a75456d08e757d4e506f53ca771b09a/mobileink},
+  description = {parsing},
+  howpublished = {PDF online},
+  interhash = {ea5305c87dacc63ef7101c8cc94d6fc3},
+  intrahash = {3a75456d08e757d4e506f53ca771b09a},
+  keywords = {parsing freebooks},
+  note = {PDF online free},
+  pages = {300+},
+  publisher = {Ellis Horwood},
+  school = {Vrije Universiteit, Amsterdam, The Netherlands},
+  timestamp = {2006-01-16T06:48:45.000+0100},
+  title = {Parsing Techniques - A Practical Guide},
+  url = {http://www.cs.vu.nl/~dick/PTAPG.html},
+  year = 1990
+}
+
+@inproceedings{Blaudeau20,
+author = {Blaudeau, Clement and Shankar, Natarajan},
+title = {A Verified Packrat Parser Interpreter for Parsing Expression Grammars},
+year = {2020},
+isbn = {9781450370974},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3372885.3373836},
+doi = {10.1145/3372885.3373836},
+abstract = {Parsing expression grammars (PEGs) offer a natural opportunity for building verified parser interpreters based on higher-order parsing combinators. PEGs are expressive, unambiguous, and efficient to parse in a top-down recursive descent style. We use the rich type system of the PVS specification language and verification system to formalize the metatheory of PEGs and define a reference implementation of a recursive parser interpreter for PEGs. In order to ensure termination of parsing, we define a notion of a well-formed grammar. Rather than relying on an inductive definition of parsing, we use abstract syntax trees that represent the computational trace of the parser to provide an effective proof certificate for correct parsing and ensure that parsing properties including soundness and completeness are maintained. The correctness properties are embedded in the types of the operations so that the proofs can be easily constructed from local proof obligations. Building on the reference parser interpreter, we define a packrat parser interpreter as well as an extension that is capable of semantic interpretation. Both these parser interpreters are proved equivalent to the reference one. All of the parsers are executable. The proofs are formalized in mathematical terms so that similar parser interpreters can be defined in any specification language with a type system similar to PVS.},
+booktitle = {Proceedings of the 9th ACM SIGPLAN International Conference on Certified Programs and Proofs},
+pages = {3–17},
+numpages = {15},
+keywords = {verified parser, PEG grammar, abstract syntax tree, PVS, semantic parsing, packrat parsing, well-formed grammars},
+location = {New Orleans, LA, USA},
+series = {CPP 2020}
+}
+
+@inproceedings{Ribeiro17,
+author = {Ribeiro, Rodrigo and Bois, Andr\'{e} Du},
+title = {Certified Bit-Coded Regular Expression Parsing},
+year = {2017},
+isbn = {9781450353892},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3125374.3125381},
+doi = {10.1145/3125374.3125381},
+abstract = {We describe the formalization of a regular expression (RE) parsing algorithm that produces a bit representation of its parse tree in the dependently typed language Agda. The algorithm computes bit-codes using Brzozowski derivatives and we prove that produced codes are equivalent to parse trees ensuring soundness and completeness w.r.t an inductive RE semantics. We include the certified algorithm in a tool developed by us, named verigrep, for regular expression based search in the style of the well known GNU grep. Practical experiments conducted with this tool are reported.},
+booktitle = {Proceedings of the 21st Brazilian Symposium on Programming Languages},
+articleno = {4},
+numpages = {8},
+keywords = {regular expressions, dependent types, Certified algorithms, bit-codes},
+location = {Fortaleza, CE, Brazil},
+series = {SBLP 2017}
+}
+@article{FirsovU14,
+  author    = {Denis Firsov and
+               Tarmo Uustalu},
+  title     = {Certified {CYK} parsing of context-free languages},
+  journal   = {J. Log. Algebraic Methods Program.},
+  volume    = {83},
+  number    = {5-6},
+  pages     = {459--468},
+  year      = {2014},
+  url       = {https://doi.org/10.1016/j.jlamp.2014.09.002},
+  doi       = {10.1016/j.jlamp.2014.09.002},
+  timestamp = {Tue, 16 Feb 2021 15:58:23 +0100},
+  biburl    = {https://dblp.org/rec/journals/jlp/FirsovU14.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+@inproceedings{FirsovU13,
+  author    = {Denis Firsov and
+               Tarmo Uustalu},
+  editor    = {Georges Gonthier and
+               Michael Norrish},
+  title     = {Certified Parsing of Regular Languages},
+  booktitle = {Certified Programs and Proofs - Third International Conference, {CPP}
+               2013, Melbourne, VIC, Australia, December 11-13, 2013, Proceedings},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {8307},
+  pages     = {98--113},
+  publisher = {Springer},
+  year      = {2013},
+  url       = {https://doi.org/10.1007/978-3-319-03545-1\_7},
+  doi       = {10.1007/978-3-319-03545-1\_7},
+  timestamp = {Sun, 25 Oct 2020 22:54:47 +0100},
+  biburl    = {https://dblp.org/rec/conf/cpp/FirsovU13.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+@inproceedings{DelfinoR18,
+  author    = {Thales Ant{\^{o}}nio Delfino and
+               Rodrigo Geraldo Ribeiro},
+  editor    = {Carlos Camar{\~{a}}o and
+               Martin Sulzmann},
+  title     = {Towards certified virtual machine-based regular expression parsing},
+  booktitle = {Proceedings of the {XXII} Brazilian Symposium on Programming Languages,
+               {SBLP} 2018, Sao Carlos, Brazil, September 20-21, 2018},
+  pages     = {67--74},
+  publisher = {{ACM}},
+  year      = {2018},
+  url       = {https://doi.org/10.1145/3264637.3264646},
+  doi       = {10.1145/3264637.3264646},
+  timestamp = {Fri, 10 May 2019 16:53:43 +0200},
+  biburl    = {https://dblp.org/rec/conf/sblp/DelfinoR18.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+@inproceedings{LopesRC16,
+  author    = {Raul Lopes and
+               Rodrigo Geraldo Ribeiro and
+               Carlos Camar{\~{a}}o},
+  editor    = {Fernando Castor and
+               Yu David Liu},
+  title     = {Certified Derivative-Based Parsing of Regular Expressions},
+  booktitle = {Programming Languages - 20th Brazilian Symposium, {SBLP} 2016, Maring{\'{a}},
+               Brazil, September 22-23, 2016, Proceedings},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {9889},
+  pages     = {95--109},
+  publisher = {Springer},
+  year      = {2016},
+  url       = {https://doi.org/10.1007/978-3-319-45279-1\_7},
+  doi       = {10.1007/978-3-319-45279-1\_7},
+  timestamp = {Fri, 14 Feb 2020 08:11:05 +0100},
+  biburl    = {https://dblp.org/rec/conf/sblp/LopesRC16.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+@inproceedings{Krishnaswami19,
+author = {Krishnaswami, Neelakantan R. and Yallop, Jeremy},
+title = {A Typed, Algebraic Approach to Parsing},
+year = {2019},
+isbn = {9781450367127},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3314221.3314625},
+doi = {10.1145/3314221.3314625},
+abstract = {In this paper, we recall the definition of the context-free expressions (or µ-regular expressions), an algebraic presentation of the context-free languages. Then, we define a core type system for the context-free expressions which gives a compositional criterion for identifying those context-free expressions which can be parsed unambiguously by predictive algorithms in the style of recursive descent or LL(1). Next, we show how these typed grammar expressions can be used to derive a parser combinator library which both guarantees linear-time parsing with no backtracking and single-token lookahead, and which respects the natural denotational semantics of context-free expressions. Finally, we show how to exploit the type information to write a staged version of this library, which produces dramatic increases in performance, even outperforming code generated by the standard parser generator tool ocamlyacc.},
+booktitle = {Proceedings of the 40th ACM SIGPLAN Conference on Programming Language Design and Implementation},
+pages = {379–393},
+numpages = {15},
+keywords = {type theory, Kleene algebra, context-free languages, parsing},
+location = {Phoenix, AZ, USA},
+series = {PLDI 2019}
+}
+
+@article{10.1145/982962.964011,
+author = {Ford, Bryan},
+title = {Parsing Expression Grammars: A Recognition-Based Syntactic Foundation},
+year = {2004},
+issue_date = {January 2004},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {39},
+number = {1},
+issn = {0362-1340},
+url = {https://doi.org/10.1145/982962.964011},
+doi = {10.1145/982962.964011},
+abstract = {For decades we have been using Chomsky's generative system of grammars, particularly context-free grammars (CFGs) and regular expressions (REs), to express the syntax of programming languages and protocols. The power of generative grammars to express ambiguity is crucial to their original purpose of modelling natural languages, but this very power makes it unnecessarily difficult both to express and to parse machine-oriented languages using CFGs. Parsing Expression Grammars (PEGs) provide an alternative, recognition-based formal foundation for describing machine-oriented syntax, which solves the ambiguity problem by not introducing ambiguity in the first place. Where CFGs express nondeterministic choice between alternatives, PEGs instead use prioritized choice. PEGs address frequently felt expressiveness limitations of CFGs and REs, simplifying syntax definitions and making it unnecessary to separate their lexical and hierarchical components. A linear-time parser can be built for any PEG, avoiding both the complexity and fickleness of LR parsers and the inefficiency of generalized CFG parsing. While PEGs provide a rich set of operators for constructing grammars, they are reducible to two minimal recognition schemas developed around 1970, TS/TDPL and gTS/GTDPL, which are here proven equivalent in effective recognition power.},
+journal = {SIGPLAN Not.},
+month = {jan},
+pages = {111–122},
+numpages = {12},
+keywords = {context-free grammars, GTDPL, unified grammars, syntactic predicates, scannerless parsing, regular expressions, parsing expression grammars, packrat parsing, lexical analysis, BNF, TDPL}
+}
+
+@inproceedings{Ford2004,
+author = {Ford, Bryan},
+title = {Parsing Expression Grammars: A Recognition-Based Syntactic Foundation},
+year = {2004},
+isbn = {158113729X},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/964001.964011},
+doi = {10.1145/964001.964011},
+abstract = {For decades we have been using Chomsky's generative system of grammars, particularly context-free grammars (CFGs) and regular expressions (REs), to express the syntax of programming languages and protocols. The power of generative grammars to express ambiguity is crucial to their original purpose of modelling natural languages, but this very power makes it unnecessarily difficult both to express and to parse machine-oriented languages using CFGs. Parsing Expression Grammars (PEGs) provide an alternative, recognition-based formal foundation for describing machine-oriented syntax, which solves the ambiguity problem by not introducing ambiguity in the first place. Where CFGs express nondeterministic choice between alternatives, PEGs instead use prioritized choice. PEGs address frequently felt expressiveness limitations of CFGs and REs, simplifying syntax definitions and making it unnecessary to separate their lexical and hierarchical components. A linear-time parser can be built for any PEG, avoiding both the complexity and fickleness of LR parsers and the inefficiency of generalized CFG parsing. While PEGs provide a rich set of operators for constructing grammars, they are reducible to two minimal recognition schemas developed around 1970, TS/TDPL and gTS/GTDPL, which are here proven equivalent in effective recognition power.},
+booktitle = {Proceedings of the 31st ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages},
+pages = {111–122},
+numpages = {12},
+keywords = {lexical analysis, scannerless parsing, packrat parsing, parsing expression grammars, syntactic predicates, TDPL, BNF, unified grammars, context-free grammars, regular expressions, GTDPL},
+location = {Venice, Italy},
+series = {POPL '04}
+}
+@inproceedings{Ribeiro19,
+author = {Ribeiro, Rodrigo and Reis, Leonardo V. S. and Feitosa, Samuel and Cardoso, Elton M.},
+title = {Towards Typed Semantics for Parsing Expression Grammars},
+year = {2019},
+isbn = {9781450376389},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3355378.3355388},
+doi = {10.1145/3355378.3355388},
+abstract = {We describe the formalization of a type system for parsing expression grammars (PEG) which is equivalent to Ford's original fixpoint-based definition of well-formed PEGs. We use our type system definition to implement a functional big-step semantics for typed PEGs using the Agda programming language.},
+booktitle = {Proceedings of the XXIII Brazilian Symposium on Programming Languages},
+pages = {70–77},
+numpages = {8},
+keywords = {Type systems, Parsing Expression Grammars, Parsing},
+location = {Salvador, Brazil},
+series = {SBLP 2019}
+}
+
+@inproceedings{MouraB08,
+  author    = {Leonardo Mendon{\c{c}}a de Moura and
+               Nikolaj Bj{\o}rner},
+  editor    = {C. R. Ramakrishnan and
+               Jakob Rehof},
+  title     = {{Z3:} An Efficient {SMT} Solver},
+  booktitle = {Tools and Algorithms for the Construction and Analysis of Systems,
+               14th International Conference, {TACAS} 2008, Held as Part of the Joint
+               European Conferences on Theory and Practice of Software, {ETAPS} 2008,
+               Budapest, Hungary, March 29-April 6, 2008. Proceedings},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {4963},
+  pages     = {337--340},
+  publisher = {Springer},
+  year      = {2008},
+  url       = {https://doi.org/10.1007/978-3-540-78800-3\_24},
+  doi       = {10.1007/978-3-540-78800-3\_24},
+  timestamp = {Tue, 14 May 2019 10:00:53 +0200},
+  biburl    = {https://dblp.org/rec/conf/tacas/MouraB08.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{FelleisenFFKBMT18,
+  author    = {Matthias Felleisen and
+               Robert Bruce Findler and
+               Matthew Flatt and
+               Shriram Krishnamurthi and
+               Eli Barzilay and
+               Jay A. McCarthy and
+               Sam Tobin{-}Hochstadt},
+  title     = {A programmable programming language},
+  journal   = {Commun. {ACM}},
+  volume    = {61},
+  number    = {3},
+  pages     = {62--71},
+  year      = {2018},
+  url       = {https://doi.org/10.1145/3127323},
+  doi       = {10.1145/3127323},
+  timestamp = {Wed, 14 Nov 2018 10:22:36 +0100},
+  biburl    = {https://dblp.org/rec/journals/cacm/FelleisenFFKBMT18.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@incollection{Pottier05,
+  author = {Fran{\c{c}}ois Pottier and Didier R{\'{e}}my},
+  title = {The Essence of {ML} Type Inference},
+  booktitle = {Advanced Topics in Types and Programming Languages},
+  pages = {389--489},
+  publisher = {MIT Press},
+  year = {2005},
+  editor = {Benjamin C. Pierce},
+  chapter = {10}
+}
+@InProceedings{Barret10,
+  author =	 {Clark Barrett and Aaron Stump and Cesare Tinelli},
+  title =	 {{The SMT-LIB Standard: Version 2.0}},
+  year =	 2010,
+  booktitle =	 {Proceedings of the 8th International Workshop on
+                  Satisfiability Modulo Theories (Edinburgh, UK)},
+  editor =	 {A.~Gupta and D.~Kroening},
+}
+@article{Valiant75,
+  author    = {Leslie G. Valiant},
+  title     = {General Context-Free Recognition in Less than Cubic Time},
+  journal   = {J. Comput. Syst. Sci.},
+  volume    = {10},
+  number    = {2},
+  pages     = {308--315},
+  year      = {1975},
+  url       = {https://doi.org/10.1016/S0022-0000(75)80046-8},
+  doi       = {10.1016/S0022-0000(75)80046-8},
+  timestamp = {Tue, 16 Feb 2021 14:04:18 +0100},
+  biburl    = {https://dblp.org/rec/journals/jcss/Valiant75.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+@inproceedings{Norell08,
+author = {Norell, Ulf},
+title = {Dependently Typed Programming in Agda},
+year = {2008},
+isbn = {3642046517},
+publisher = {Springer-Verlag},
+address = {Berlin, Heidelberg},
+booktitle = {Proceedings of the 6th International Conference on Advanced Functional Programming},
+pages = {230–266},
+numpages = {37},
+location = {Heijen, The Netherlands},
+series = {AFP'08}
+}
+@article{Brzozowski1964,
+author = {Brzozowski, Janusz A.},
+title = {Derivatives of Regular Expressions},
+year = {1964},
+issue_date = {Oct. 1964},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {11},
+number = {4},
+issn = {0004-5411},
+url = {https://doi.org/10.1145/321239.321249},
+doi = {10.1145/321239.321249},
+journal = {J. ACM},
+month = {oct},
+pages = {481–494},
+numpages = {14}
+}
+@article{MASCARENHAS14,
+  author    = {Fabio Mascarenhas and
+               S{\'{e}}rgio Medeiros and
+               Roberto Ierusalimschy},
+  title     = {On the relation between context-free grammars and parsing expression
+               grammars},
+  journal   = {Sci. Comput. Program.},
+  volume    = {89},
+  pages     = {235--250},
+  year      = {2014},
+  url       = {https://doi.org/10.1016/j.scico.2014.01.012},
+  doi       = {10.1016/j.scico.2014.01.012},
+  timestamp = {Wed, 17 Feb 2021 21:55:57 +0100},
+  biburl    = {https://dblp.org/rec/journals/scp/MascarenhasMI14.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+@article{Asperti10,
+  author       = {Andrea Asperti and
+                  Claudio Sacerdoti Coen and
+                  Enrico Tassi},
+  title        = {Regular Expressions, au point},
+  journal      = {CoRR},
+  volume       = {abs/1010.2604},
+  year         = {2010},
+  url          = {http://arxiv.org/abs/1010.2604},
+  eprinttype    = {arXiv},
+  eprint       = {1010.2604},
+  timestamp    = {Mon, 13 Aug 2018 16:48:11 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-1010-2604.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+@inproceedings{Trevor10,
+author = {Jim, Trevor and Mandelbaum, Yitzhak and Walker, David},
+title = {Semantics and algorithms for data-dependent grammars},
+year = {2010},
+isbn = {9781605584799},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/1706299.1706347},
+doi = {10.1145/1706299.1706347},
+abstract = {We present the design and theory of a new parsing engine, YAKKER, capable of satisfying the many needs of modern programmers and modern data processing applications. In particular, our new parsing engine handles (1) full scannerless context-free grammars with (2) regular expressions as right-hand sides for defining nonterminals. YAKKER also includes (3) facilities for binding variables to intermediate parse results and (4) using such bindings within arbitrary constraints to control parsing. These facilities allow the kind of data-dependent parsing commonly needed in systems applications, particularly those that operate over binary data. In addition, (5) nonterminals may be parameterized by arbitrary values, which gives the system good modularity and abstraction properties in the presence of data-dependent parsing. Finally, (6) legacy parsing libraries,such as sophisticated libraries for dates and times, may be directly incorporated into parser specifications. We illustrate the importance and utility of this rich collection of features by presenting its use on examples ranging from difficult programming language grammars to web server logs to binary data specification. We also show that our grammars have important compositionality properties and explain why such properties areimportant in modern applications such as automatic grammar induction.In terms of technical contributions, we provide a traditional high-level semantics for our new grammar formalization and show how to compile grammars into non deterministic automata. These automata are stack-based, somewhat like conventional push-down automata,but are also equipped with environments to track data-dependent parsing state. We prove the correctness of our translation of data-dependent grammars into these new automata and then show how to implement the automata efficiently using a variation of Earley's parsing algorithm.},
+booktitle = {Proceedings of the 37th Annual ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages},
+pages = {417–430},
+numpages = {14},
+keywords = {transducers, semantic predicates, scannerless parsing, regular right-sides, regular expressions, l-attributed grammars, ebnf, earley parsing, data-dependent grammars, context-sensitive grammars, automata, ambiguous grammars},
+location = {Madrid, Spain},
+series = {POPL '10}
+}
+
+@article{10.1145/1707801.1706347,
+author = {Jim, Trevor and Mandelbaum, Yitzhak and Walker, David},
+title = {Semantics and algorithms for data-dependent grammars},
+year = {2010},
+issue_date = {January 2010},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {45},
+number = {1},
+issn = {0362-1340},
+url = {https://doi.org/10.1145/1707801.1706347},
+doi = {10.1145/1707801.1706347},
+abstract = {We present the design and theory of a new parsing engine, YAKKER, capable of satisfying the many needs of modern programmers and modern data processing applications. In particular, our new parsing engine handles (1) full scannerless context-free grammars with (2) regular expressions as right-hand sides for defining nonterminals. YAKKER also includes (3) facilities for binding variables to intermediate parse results and (4) using such bindings within arbitrary constraints to control parsing. These facilities allow the kind of data-dependent parsing commonly needed in systems applications, particularly those that operate over binary data. In addition, (5) nonterminals may be parameterized by arbitrary values, which gives the system good modularity and abstraction properties in the presence of data-dependent parsing. Finally, (6) legacy parsing libraries,such as sophisticated libraries for dates and times, may be directly incorporated into parser specifications. We illustrate the importance and utility of this rich collection of features by presenting its use on examples ranging from difficult programming language grammars to web server logs to binary data specification. We also show that our grammars have important compositionality properties and explain why such properties areimportant in modern applications such as automatic grammar induction.In terms of technical contributions, we provide a traditional high-level semantics for our new grammar formalization and show how to compile grammars into non deterministic automata. These automata are stack-based, somewhat like conventional push-down automata,but are also equipped with environments to track data-dependent parsing state. We prove the correctness of our translation of data-dependent grammars into these new automata and then show how to implement the automata efficiently using a variation of Earley's parsing algorithm.},
+journal = {SIGPLAN Not.},
+month = {jan},
+pages = {417–430},
+numpages = {14},
+keywords = {transducers, semantic predicates, scannerless parsing, regular right-sides, regular expressions, l-attributed grammars, ebnf, earley parsing, data-dependent grammars, context-sensitive grammars, automata, ambiguous grammars}
+}
+
+@article{Bernardy16,
+  author =       {Jean-Philippe Bernardy and Patrik Jansson},
+  title =        {Certified Context-Free Parsing: A formalisation of
+                  {Valiant}'s Algorithm in {Agda}},
+  journal =      {Logical Methods in Computer Science},
+  doi =          {10.2168/LMCS-12(2:6)2016},
+  volume =       12,
+  issue =        2,
+  year =         2016,
+}
+
+@article{MacedoO13,
+  author    = {Hugo Daniel Macedo and
+               Jos{\'{e}} Nuno Oliveira},
+  title     = {Typing linear algebra: {A} biproduct-oriented approach},
+  journal   = {Sci. Comput. Program.},
+  volume    = {78},
+  number    = {11},
+  pages     = {2160--2191},
+  year      = {2013},
+  url       = {https://doi.org/10.1016/j.scico.2012.07.012},
+  doi       = {10.1016/j.scico.2012.07.012},
+  timestamp = {Wed, 17 Feb 2021 21:55:53 +0100},
+  biburl    = {https://dblp.org/rec/journals/scp/MacedoO13.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+@inproceedings{Sulzmann17,
+  author    = {Martin Sulzmann and
+               Peter Thiemann},
+  editor    = {Bor{-}Yuh Evan Chang},
+  title     = {A Computational Interpretation of Context-Free Expressions},
+  booktitle = {Programming Languages and Systems - 15th Asian Symposium, {APLAS}
+               2017, Suzhou, China, November 27-29, 2017, Proceedings},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {10695},
+  pages     = {387--405},
+  publisher = {Springer},
+  year      = {2017},
+  url       = {https://doi.org/10.1007/978-3-319-71237-6\_19},
+  doi       = {10.1007/978-3-319-71237-6\_19},
+  timestamp = {Mon, 23 Mar 2020 12:22:51 +0100},
+  biburl    = {https://dblp.org/rec/conf/aplas/SulzmannT17.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+@inproceedings{Nielsen2011,
+  author    = {Lasse Nielsen and
+               Fritz Henglein},
+  editor    = {Adrian{-}Horia Dediu and
+               Shunsuke Inenaga and
+               Carlos Mart{\'{\i}}n{-}Vide},
+  title     = {Bit-coded Regular Expression Parsing},
+  booktitle = {Language and Automata Theory and Applications - 5th International
+               Conference, {LATA} 2011, Tarragona, Spain, May 26-31, 2011. Proceedings},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {6638},
+  pages     = {402--413},
+  publisher = {Springer},
+  year      = {2011},
+  url       = {https://doi.org/10.1007/978-3-642-21254-3\_32},
+  doi       = {10.1007/978-3-642-21254-3\_32},
+  timestamp = {Tue, 14 May 2019 10:00:41 +0200},
+  biburl    = {https://dblp.org/rec/conf/lata/NielsenH11.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+@article{Koprowski11,
+  author    = {Adam Koprowski and
+               Henri Binsztok},
+  title     = {{TRX:} {A} Formally Verified Parser Interpreter},
+  journal   = {Log. Methods Comput. Sci.},
+  volume    = {7},
+  number    = {2},
+  year      = {2011},
+  url       = {https://doi.org/10.2168/LMCS-7(2:18)2011},
+  doi       = {10.2168/LMCS-7(2:18)2011},
+  timestamp = {Thu, 25 Jun 2020 21:29:06 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1105-2576.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+@inproceedings{Warth08,
+author = {Warth, Alessandro and Douglass, James R. and Millstein, Todd},
+title = {Packrat Parsers Can Support Left Recursion},
+year = {2008},
+isbn = {9781595939777},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/1328408.1328424},
+doi = {10.1145/1328408.1328424},
+abstract = {Packrat parsing offers several advantages over other parsing techniques, such as the guarantee of linear parse times while supporting backtracking and unlimited look-ahead. Unfortunately, the limited support for left recursion in packrat parser implementations makes them difficult to use for a large class of grammars (Java's, for example). This paper presents a modification to the memoization mechanism used by packrat parser implementations that makes it possible for them to support (even indirectly or mutually) left-recursive rules. While it is possible for a packrat parser with our modification to yield super-linear parse times for some left-recursive grammars, our experimentsshow that this is not the case for typical uses of left recursion.},
+booktitle = {Proceedings of the 2008 ACM SIGPLAN Symposium on Partial Evaluation and Semantics-Based Program Manipulation},
+pages = {103–110},
+numpages = {8},
+keywords = {left recursion, packrat parsing},
+location = {San Francisco, California, USA},
+series = {PEPM '08}
+}
+@article{MEDEIROS14,
+  author    = {S{\'{e}}rgio Medeiros and
+               Fabio Mascarenhas and
+               Roberto Ierusalimschy},
+  title     = {Left recursion in Parsing Expression Grammars},
+  journal   = {Sci. Comput. Program.},
+  volume    = {96},
+  pages     = {177--190},
+  year      = {2014},
+  url       = {https://doi.org/10.1016/j.scico.2014.01.013},
+  doi       = {10.1016/j.scico.2014.01.013},
+  timestamp = {Wed, 17 Feb 2021 21:55:59 +0100},
+  biburl    = {https://dblp.org/rec/journals/scp/MedeirosMI14a.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{Jim2010,
+ author = {Trevor Jim and Yitzhak Mandelbaum and David Walker},
+ title = {Semantics and Algorithms for Data-dependent Grammars},
+ booktitle = {Proceedings of the 37th annual ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages},
+ series = {POPL'10},
+ year = {2010},
+ isbn = {978-1-60558-479-9},
+ location = {Madrid, Spain},
+ pages = {417--430},
+ numpages = {14},
+ url = {http://doi.acm.org/10.1145/1706299.1706347},
+ doi = {http://doi.acm.org/10.1145/1706299.1706347},
+ acmid = {1706347},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {ambiguous grammars, automata, context-sensitive grammars, data-dependent grammars, earley parsing, ebnf, l-attributed grammars, regular expressions, regular right-sides, scannerless parsing, semantic predicates, transducers},
+}
+
+@inproceedings{Adams2013,
+ author = {Adams, Michael D.},
+ title = {Principled parsing for indentation-sensitive languages: revisiting landin's offside rule},
+ booktitle = {Proceedings of the 40th annual ACM SIGPLAN-SIGACT symposium on Principles of programming languages},
+ series = {POPL '13},
+ year = {2013},
+ isbn = {978-1-4503-1832-7},
+ location = {Rome, Italy},
+ pages = {511--522},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/2429069.2429129},
+ doi = {10.1145/2429069.2429129},
+ acmid = {2429129},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {indentation, offside rule, parsing},
+}
+
+@inproceedings{Parr2014,
+ author = {Parr, Terence and Harwell, Sam and Fisher, Kathleen},
+ title = {Adaptive {LL(*)} Parsing: The Power of Dynamic Analysis},
+ booktitle = {Proceedings of the 2014 ACM International Conference on Object Oriented Programming Systems Languages \&\#38; Applications},
+ series = {OOPSLA'14},
+ year = {2014},
+ isbn = {978-1-4503-2585-1},
+ location = {Portland, Oregon, USA},
+ pages = {579--598},
+ numpages = {20},
+ url = {http://doi.acm.org/10.1145/2660193.2660202},
+ doi = {10.1145/2660193.2660202},
+ acmid = {2660202},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {all(*), augmented transition networks, dfa, gll, glr, grammar, ll(*), nondeterministic parsing, peg},
+}
+
+@article{Reis2014,
+title = "The formalization and implementation of Adaptable Parsing Expression Grammars ",
+journal = "Science of Computer Programming",
+volume = "96, Part 2",
+pages = "191-210",
+year = "2014",
+issn = "0167-6423",
+author={Leonardo V. S. Reis and Roberto S. Bigonha and Vladimir Oliveira {Di Iorio} and Luis Eduardo Souza Amorim},
+keywords = "Extensible languages",
+keywords = "Adaptable grammars",
+keywords = "\{PEG\} "
+}
+
+@inproceedings{Herman2020,
+author = {Herman, Grzegorz},
+title = {Faster General Parsing through Context-Free Memoization},
+year = {2020},
+isbn = {9781450376136},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3385412.3386032},
+doi = {10.1145/3385412.3386032},
+abstract = {We present a novel parsing algorithm for all context-free languages. The algorithm features a clean mathematical formulation: parsing is expressed as a series of standard operations on regular languages and relations. Parsing complexity w.r.t. input length matches the state of the art: it is worst-case cubic, quadratic for unambiguous grammars, and linear for LR-regular grammars. What distinguishes our approach is that parsing can be implemented using only immutable, acyclic data structures. We also propose a parsing optimization technique called context-free memoization. It allows handling an overwhelming majority of input symbols using a simple stack and a lookup table, similarly to the operation of a deterministic LR(1) parser. This allows our proof-of-concept implementation to outperform the best current implementations of common generalized parsing algorithms (Earley, GLR, and GLL). Tested on a large Java source corpus, parsing is 3–5 times faster, while recognition—35 times faster.},
+booktitle = {Proceedings of the 41st ACM SIGPLAN Conference on Programming Language Design and Implementation},
+pages = {1022–1035},
+numpages = {14},
+keywords = {GLL, Earley, generalized parsing, context-free, GLR, memoization},
+location = {London, UK},
+series = {PLDI 2020}
+}
+
+@inproceedings{Edelmann2020,
+author = {Edelmann, Romain and Hamza, Jad and Kun\v{c}ak, Viktor},
+title = {Zippy LL(1) Parsing with Derivatives},
+year = {2020},
+isbn = {9781450376136},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3385412.3385992},
+doi = {10.1145/3385412.3385992},
+abstract = {In this paper, we present an efficient, functional, and formally verified parsing algorithm for LL(1) context-free expressions based on the concept of derivatives of formal languages. Parsing with derivatives is an elegant parsing technique, which, in the general case, suffers from cubic worst-case time complexity and slow performance in practice. We specialise the parsing with derivatives algorithm to LL(1) context-free expressions, where alternatives can be chosen given a single token of lookahead. We formalise the notion of LL(1) expressions and show how to efficiently check the LL(1) property. Next, we present a novel linear-time parsing with derivatives algorithm for LL(1) expressions operating on a zipper-inspired data structure. We prove the algorithm correct in Coq and present an implementation as a part of Scallion, a parser combinators framework in Scala with enumeration and pretty printing capabilities.},
+booktitle = {Proceedings of the 41st ACM SIGPLAN Conference on Programming Language Design and Implementation},
+pages = {1036–1051},
+numpages = {16},
+keywords = {Parsing, Derivatives, LL(1), Zipper, Formal proof},
+location = {London, UK},
+series = {PLDI 2020}
+}
+
+@inbook{Lasser2021,
+author = {Lasser, Sam and Casinghino, Chris and Fisher, Kathleen and Roux, Cody},
+title = {CoStar: A Verified ALL(*) Parser},
+year = {2021},
+isbn = {9781450383912},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3453483.3454053},
+abstract = {Parsers are security-critical components of many software systems, and verified parsing therefore has a key role to play in secure software design. However, existing verified parsers for context-free grammars are limited in their expressiveness, termination properties, or performance characteristics. They are only compatible with a restricted class of grammars, they are not guaranteed to terminate on all inputs, or they are not designed to be performant on grammars for real-world programming languages and data formats. In this work, we present CoStar, a verified parser that addresses these limitations. The parser is implemented with the Coq Proof Assistant and is based on the ALL(*) parsing algorithm. CoStar is sound and complete for all non-left-recursive grammars; it produces a correct parse tree for its input whenever such a tree exists, and it correctly detects ambiguous inputs. CoStar also provides strong termination guarantees; it terminates without error on all inputs when applied to a non-left-recursive grammar. Finally, CoStar achieves linear-time performance on a range of unambiguous grammars for commonly used languages and data formats.},
+booktitle = {Proceedings of the 42nd ACM SIGPLAN International Conference on Programming Language Design and Implementation},
+pages = {420–434},
+numpages = {15}
+}
+@book{RustBook,
+author = {Klabnik, Steve and Nichols, Carol},
+title = {The Rust Programming Language},
+year = {2018},
+isbn = {1593278284},
+publisher = {No Starch Press},
+address = {USA},
+abstract = {The Rust Programming Language is the official book on Rust, an open-source, community-developed systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety. This is the undisputed go-to guide to Rust, written by two members of the Rust core team, with feedback and contributions from 42 members of the community. The book assumes that youve written code in another programming language but makes no assumptions about which one, meaning the material is accessible and useful to developers from a wide variety of programming backgrounds. Known by the Rust community as The Book, The Rust Programming Language includes concept chapters, where youll learn about a particular aspect of Rust, and project chapters, where youll apply what youve learned so far to build small programs. The Book opens with a quick hands-on project to introduce the basics then explores key concepts in depth, such as ownership, the type system, error handling, and fearless concurrency. Next come detailed explanations of Rust-oriented perspectives on topics like pattern matching, iterators, and smart pointers, with concrete examples and exercises--taking you from theory to practice. The Rust Programming Language will also show you how to:- Grasp important concepts unique to Rust, like ownership, borrowing, and lifetimes- Use Cargo, Rusts built-in package manager, to build and maintain your code, including downloading and building dependencies- Effectively use Rusts zero-cost abstractions and employ your own Youll learn to develop reliable code thats speed and memory efficient, while avoiding the infamous and arcane programming pitfalls common at the systems level. When you need to dive down into lower-level control, this guide will show you how without taking on the customary risk of crashes or security holes and without requiring you to learn the fine points of a fickle toolchain. Youll also learn how to create command line programs, build single- and multithreaded web servers, and much more. The Rust Programming Language fully embraces Rusts potential to empower its users. This friendly and approachable guide will help you build not only your knowledge of Rust but also your ability to program with confidence in a wider variety of domains.}
+}
+@article{Zhang23,
+author = {Zhang, Jialun and Morrisett, Greg and Tan, Gang},
+title = {Interval Parsing Grammars for File Format Parsing},
+year = {2023},
+issue_date = {June 2023},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {7},
+number = {PLDI},
+url = {https://doi.org/10.1145/3591264},
+doi = {10.1145/3591264},
+abstract = {File formats specify how data is encoded for persistent storage. They cannot be formalized as context-free grammars since their specifications include context-sensitive patterns such as the random access pattern and the type-length-value pattern. We propose a new grammar mechanism called Interval Parsing Grammars IPGs) for file format specifications. An IPG attaches to every nonterminal/terminal an interval, which specifies the range of input the nonterminal/terminal consumes. By connecting intervals and attributes, the context-sensitive patterns in file formats can be well handled. In this paper, we formalize IPGs' syntax as well as its semantics, and its semantics naturally leads to a parser generator that generates a recursive-descent parser from an IPG. In general, IPGs are declarative, modular, and enable termination checking. We have used IPGs to specify a number of file formats including ZIP, ELF, GIF, PE, and part of PDF; we have also evaluated the performance of the generated parsers.},
+journal = {Proc. ACM Program. Lang.},
+month = {jun},
+articleno = {150},
+numpages = {23},
+keywords = {Context-sensitive Grammars, File Formats}
+}
+@INPROCEEDINGS{Lucks17,
+  author={Lucks, Stefan and Grosch, Norina Marie and König, Joshua},
+  booktitle={2017 IEEE Security and Privacy Workshops (SPW)},
+  title={Taming the Length Field in Binary Data: Calc-Regular Languages},
+  year={2017},
+  volume={},
+  number={},
+  pages={66-79},
+  keywords={Security;Receivers;Computer languages;Computer bugs;Heart beat;Encoding;Security;Language Theory;Data Serialization},
+  doi={10.1109/SPW.2017.33}}
+
+@INPROCEEDINGS{Zephyr21,
+  author={Lucas, Zephyr S. and Liu, Joanna Y. and Anantharaman, Prashant and Smith, Sean W.},
+  booktitle={2021 IEEE Security and Privacy Workshops (SPW)},
+  title={Research Report: Parsing PEGs with Length Fields in Software and Hardware},
+  year={2021},
+  volume={},
+  number={},
+  pages={128-133},
+  keywords={Data privacy;VHDL;Conferences;Software algorithms;Tools;Software;Hardware;Parsing Expression Grammars;Scaffolding Automata;Length fields;Hardware parsers},
+  doi={10.1109/SPW53761.2021.00026}}
+
+@inproceedings{Moura21,
+author = {Moura, Leonardo de and Ullrich, Sebastian},
+title = {The Lean 4 Theorem Prover and Programming Language},
+year = {2021},
+isbn = {978-3-030-79875-8},
+publisher = {Springer-Verlag},
+address = {Berlin, Heidelberg},
+url = {https://doi.org/10.1007/978-3-030-79876-5_37},
+doi = {10.1007/978-3-030-79876-5_37},
+abstract = {Lean 4 is a reimplementation of the Lean interactive theorem prover (ITP) in Lean itself. It addresses many shortcomings of the previous versions and contains many new features. Lean 4 is fully extensible: users can modify and extend the parser, elaborator, tactics, decision procedures, pretty printer, and code generator. The new system has a hygienic macro system custom-built for ITPs. It contains a new typeclass resolution procedure based on tabled resolution, addressing significant performance problems reported by the growing user base. Lean 4 is also an efficient functional programming language based on a novel programming paradigm called functional but in-place. Efficient code generation is crucial for Lean users because many write custom proof automation procedures in Lean itself.},
+booktitle = {Automated Deduction – CADE 28: 28th International Conference on Automated Deduction, Virtual Event, July 12–15, 2021, Proceedings},
+pages = {625–635},
+numpages = {11}
+}
+@inproceedings{Culpepper19,
+  author       = {Ryan Culpepper and
+                  Matthias Felleisen and
+                  Matthew Flatt and
+                  Shriram Krishnamurthi},
+  editor       = {Benjamin S. Lerner and
+                  Rastislav Bod{\'{\i}}k and
+                  Shriram Krishnamurthi},
+  title        = {From Macros to DSLs: The Evolution of Racket},
+  booktitle    = {3rd Summit on Advances in Programming Languages, {SNAPL} 2019, May
+                  16-17, 2019, Providence, RI, {USA}},
+  series       = {LIPIcs},
+  volume       = {136},
+  pages        = {5:1--5:19},
+  publisher    = {Schloss Dagstuhl - Leibniz-Zentrum f{\"{u}}r Informatik},
+  year         = {2019},
+  url          = {https://doi.org/10.4230/LIPIcs.SNAPL.2019.5},
+  doi          = {10.4230/LIPICS.SNAPL.2019.5},
+  timestamp    = {Wed, 21 Aug 2024 22:46:00 +0200},
+  biburl       = {https://dblp.org/rec/conf/snapl/CulpepperFFK19.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+@article{Poulsen17,
+author = {Bach Poulsen, Casper and Rouvoet, Arjen and Tolmach, Andrew and Krebbers, Robbert and Visser, Eelco},
+title = {Intrinsically-typed definitional interpreters for imperative languages},
+year = {2017},
+issue_date = {January 2018},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {2},
+number = {POPL},
+url = {https://doi.org/10.1145/3158104},
+doi = {10.1145/3158104},
+abstract = {A definitional interpreter defines the semantics of an object language in terms of the (well-known) semantics of a host language, enabling understanding and validation of the semantics through execution. Combining a definitional interpreter with a separate type system requires a separate type safety proof. An alternative approach, at least for pure object languages, is to use a dependently-typed language to encode the object language type system in the definition of the abstract syntax. Using such intrinsically-typed abstract syntax definitions allows the host language type checker to verify automatically that the interpreter satisfies type safety. Does this approach scale to larger and more realistic object languages, and in particular to languages with mutable state and objects? In this paper, we describe and demonstrate techniques and libraries in Agda that successfully scale up intrinsically-typed definitional interpreters to handle rich object languages with non-trivial binding structures and mutable state. While the resulting interpreters are certainly more complex than the simply-typed λ-calculus interpreter we start with, we claim that they still meet the goals of being concise, comprehensible, and executable, while guaranteeing type safety for more elaborate object languages. We make the following contributions: (1) A dependent-passing style technique for hiding the weakening of indexed values as they propagate through monadic code. (2) An Agda library for programming with scope graphs and frames, which provides a uniform approach to dealing with name binding in intrinsically-typed interpreters. (3) Case studies of intrinsically-typed definitional interpreters for the simply-typed λ-calculus with references (STLC+Ref) and for a large subset of Middleweight Java (MJ).},
+journal = {Proc. ACM Program. Lang.},
+month = dec,
+articleno = {16},
+numpages = {34},
+keywords = {Agda, Java, definitional interpreters, dependent types, mechanized semantics, scope graphs, type safety}
+}
+@article{ReisBIA14,
+  author       = {Leonardo Vieira dos Santos Reis and
+                  Roberto da Silva Bigonha and
+                  Vladimir Oliveira Di Iorio and
+                  Lu{\'{\i}}s Eduardo de Souza Amorim},
+  title        = {The formalization and implementation of Adaptable Parsing Expression
+                  Grammars},
+  journal      = {Sci. Comput. Program.},
+  volume       = {96},
+  pages        = {191--210},
+  year         = {2014},
+  url          = {https://doi.org/10.1016/j.scico.2014.02.020},
+  doi          = {10.1016/J.SCICO.2014.02.020},
+  timestamp    = {Tue, 01 Apr 2025 19:03:47 +0200},
+  biburl       = {https://dblp.org/rec/journals/scp/ReisBIA14.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+@inproceedings{CardosoRRBBI19,
+  author       = {Elton M. Cardoso and
+                  Rodrigo Geraldo Ribeiro and
+                  Leonardo Vieira dos Santos Reis and
+                  Mariza A. S. Bigonha and
+                  Roberto S. Bigonha and
+                  Vladimir Oliveira Di Iorio},
+  editor       = {Chih{-}Cheng Hung and
+                  George A. Papadopoulos},
+  title        = {An attribute language definition for adaptable parsing expression
+                  grammars},
+  booktitle    = {Proceedings of the 34th {ACM/SIGAPP} Symposium on Applied Computing,
+  pages        = {1518--1525},
+  publisher    = {{ACM}},
+  year         = {2019},
+  url          = {https://doi.org/10.1145/3297280.3299738},
+  doi          = {10.1145/3297280.3299738},
+  timestamp    = {Wed, 07 Dec 2022 23:09:44 +0100},
+  biburl       = {https://dblp.org/rec/conf/sac/CardosoRRBBI19.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
