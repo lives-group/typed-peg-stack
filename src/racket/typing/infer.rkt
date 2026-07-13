@@ -1,17 +1,20 @@
 #lang racket
 
 ;; main type inference driver
+;;
+;; Inference goes through the Rosette back-end (typing/rosette-solver.rkt), which
+;; drives a solver through its API and reads the model back as Racket values.
+;; Rosette bundles its own solver, so no separately installed z3 executable is
+;; needed to use the language or to run the examples. The Z3 back-end
+;; (typing/constraint-solver.rkt) is kept as an independent cross-check and is
+;; exercised by the corpus runners whenever a z3 executable is available.
 
 (require "../core.rkt"
          "type.rkt"
          "constraint-gen.rkt"
-         "constraint-solver.rkt"
-         "solver/model-parser.rkt")
+         "rosette-solver.rkt")
 
 (provide infer)
 
 (define (infer g)
-  (let* ([constr (gen-constr g)]
-         [p (solver constr)]
-         [result-string (cdr p)])
-        (cons (car p) (parse (open-input-string result-string)))))
+  (rosette-infer (gen-constr g)))

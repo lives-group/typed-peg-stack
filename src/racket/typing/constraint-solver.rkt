@@ -6,13 +6,27 @@
          "solver/script-gen.rkt")
 
 (provide solver
+         z3-available?
          gen-context
          move-exists
          group-equalities)
 
+;; This back-end shells out to an externally installed `z3`. It is no longer the
+;; default (see typing/infer.rkt); it is kept as an independent cross-check of
+;; the Rosette back-end. `system` does not fail when the executable is missing:
+;; it just writes to stderr and yields an empty output, which would silently be
+;; read as an inconclusive verdict. We therefore check for the executable and
+;; raise instead of returning a result that looks plausible but is not one.
+
+(define (z3-available?)
+  (and (find-executable-path "z3") #t))
+
 ;; solver interface
 
 (define (solver c [path #f])
+  (unless (z3-available?)
+    (error 'solver
+           "no z3 executable on PATH; install z3 or use the Rosette back-end (rosette-solve)"))
   (let* ([c1 (gen-context c)]
          [ctx (car c1)]
          [c11 (cdr c1)]

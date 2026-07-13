@@ -74,7 +74,7 @@
     [(ppop) (constr-eq ty (type #t '()))]
     [(pdrop) (constr-eq ty (type #t '()))]
     [(ppeek) (constr-eq ty (type #t '()))]
-    [(pdropall) (constr-eq ty (type #t '()))]
+    [(ppopall) (constr-eq ty (type #t '()))]
     [(ppeekall) (constr-eq ty (type #t '()))]
     [(prepeat-exact e val) (let* ([tv1 (fresh-var)]
                                   [c1 (gen-constr-expr e tv1)]

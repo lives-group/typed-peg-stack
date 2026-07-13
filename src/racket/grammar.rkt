@@ -40,13 +40,13 @@
     (factor [(factor postfix) ($2 $1)]
             [(atom) $1])
     (postfix [(STAR) (lambda (e) (pstar e))]
-             ;[(PLUS) (lambda (e) (pcat e (pstar e)))]
-             [(OPTION) (lambda (e) (pchoice e peps))]
+             [(PLUS) (lambda (e) (pcat e (pstar e)))]
+             [(OPTION) (lambda (e) (pchoice e (peps)))]
              [(LKEYS aexpr COMMA aexpr RKEYS) (lambda (e) (prepeat-interval e $2 $4))]
              [(LKEYS aexpr RKEYS) (lambda (e) (prepeat-exact e $2))]
              )
     (char-list [(CHAR) (pchr (car (string->list $1)))]
-               [(CHAR COMMA char-list) (pchoice $1 $3)])
+               [(CHAR COMMA char-list) (pchoice (pchr (car (string->list $1))) $3)])
     (atom [(EPSILON) (peps)]
           [(CHAR)    (pchr (car (string->list $1)))]
           [(STRING)  (string->tree (string->list $1))]
