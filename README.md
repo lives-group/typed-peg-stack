@@ -1,4 +1,4 @@
-# Typed Pest: a mechanised strong-normalization proof and prototype
+# Pest Control: a formal model of the Pest parser generator
 
 This repository accompanies the paper on a type system for the Pest parsing
 expression grammar calculus with an implicit stack. It contains:
